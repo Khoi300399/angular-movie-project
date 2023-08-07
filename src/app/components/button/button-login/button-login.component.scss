@@ -1,0 +1,51 @@
+@import "../../../../assets/scss/helpers/variables";
+@import "../../../../assets/scss/helpers/mixins";
+.list-btn {
+  @include flexBox(center, space-between);
+  .btn-login {
+    @include flexBox(center, center);
+    padding: 6.596px 19.787px;
+    border-radius: 10px;
+    border: 1px solid $border-color;
+  }
+}
+.sub-title {
+  position: relative;
+  margin-block: 20px;
+  @include text(1.2rem, 600, $title-color, center);
+  &:before,
+  &:after {
+    content: "";
+    display: inline-block;
+    @include size(69px, 1px);
+    @include absoluteCenter("top");
+    background: $border-color;
+  }
+  &:before {
+    left: -25px;
+  }
+  &:after {
+    right: -25px;
+  }
+}
+@include minWidth(991.98px) {
+  .list-btn {
+    .btn-login {
+      width: 130px;
+      padding: 10px 30px;
+    }
+  }
+  .sub-title {
+    font-size: 1.4rem;
+    &:before,
+    &:after {
+      width: 150px;
+    }
+    &:before {
+      left: -10px;
+    }
+    &:after {
+      right: -10px;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<form-template>
+  <form [formGroup]="signInForm" (ngSubmit)="onLogin(signInForm)">
+    <input-form
+      [name]="taiKhoan"
+      placeholder="Enter your username"
+      label="Username"
+      [control]="$any(signInForm.get(taiKhoan))"
+      [required]="true"
+    ></input-form>
+    <input-form
+      [name]="matKhau"
+      placeholder="Enter your password"
+      label="Password"
+      [control]="$any(signInForm.get(matKhau))"
+      [password]="true"
+      [required]="true"
+    ></input-form>
+
+    <div class="form-forget">
+      <a href="#!">Forgot password</a>
+    </div>
+
+    <button class="submit" [disabled]="signInForm.invalid">
+      <ng-container
+        *ngIf="(vm$ | async)?.isloading; then loading; else noLoading"
+      ></ng-container>
+    </button>
+  </form>
+</form-template>
+
+<ng-template #loading>
+  <div class="loading"></div>
+</ng-template>
+<ng-template #noLoading>Sign in</ng-template>

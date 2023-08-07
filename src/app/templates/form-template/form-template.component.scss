@@ -1,0 +1,46 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.form-template {
+  font-family: $third-font;
+  @include flexBox(center, center);
+  @include size(100vw, 100vh);
+  background: url("../../../assets/images/bg.jpg") no-repeat center center /
+    cover;
+  .form-container {
+    @include size(327px, auto);
+    padding: 50px;
+    @include absoluteCenter("both");
+    background: $bg-form;
+    border-radius: 15px;
+  }
+  .form-heading {
+    @include text(2rem, 600, $white-color, center);
+    line-height: 28px; /* 150% */
+  }
+  .form-title {
+    @include text(1.2rem, 500, $title-color, center);
+    line-height: 28px; /* 150% */
+    text-align: center;
+
+    a {
+      @include text(1.2rem, 600, $third-color, center);
+      margin-left: 5px;
+    }
+  }
+}
+@include minWidth(991.98px) {
+  .form-template {
+    .form-container {
+      @include size(556px, auto);
+    }
+    .form-heading {
+      font-size: 2.5rem;
+    }
+    .form-title {
+      font-size: 1.4rem;
+      a {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

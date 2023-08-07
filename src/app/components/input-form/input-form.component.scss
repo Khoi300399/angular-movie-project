@@ -1,0 +1,82 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.form-field {
+  position: relative;
+  margin-bottom: 30px;
+}
+.form-input {
+  width: 100%;
+  padding: 10px 50px 10px 20px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid $border-color;
+  @include text(1.4rem, 600, $title-color);
+  transition: all 0.3s ease;
+  &::placeholder {
+    @include text(1.2rem, 600, transparent);
+    transition: all 0.3s ease;
+  }
+  &:focus::placeholder {
+    color: $placeholder-color;
+  }
+  &:focus,
+  &:not(:placeholder-shown) {
+    border-color: $third-color;
+  }
+  &:focus + .form-label,
+  &:not(:placeholder-shown) + .form-label {
+    top: 0;
+    left: 10px;
+    background: $bg-form;
+    color: $third-color;
+  }
+  &:focus + .form-label sup,
+  &:not(:placeholder-shown) + .form-label sup {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+input.form-input:-internal-autofill-selected {
+  background: transparent !important;
+}
+
+.form-label {
+  @include text(1.2rem, 600, $title-color);
+  @include absoluteCenter("top");
+  left: 22px;
+  padding: 0 10px;
+  user-select: none;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  sup {
+    opacity: 0;
+    visibility: hidden;
+    color: $third-color;
+    transition: all 0.3s ease;
+  }
+}
+.form-eye {
+  @include absoluteCenter("top");
+  right: 22px;
+}
+.form-message {
+  position: absolute;
+  left: 10px;
+  bottom: -20;
+  @include text(1.2rem, 400, $error-color);
+}
+
+@include minWidth(991.98px) {
+  .form-field {
+    margin-bottom: 40px;
+  }
+
+  .form-label,
+  .form-message,
+  .form-input::placeholder {
+    font-size: 1.6rem;
+  }
+  .form-input {
+    padding: 20px 50px 20px 20px;
+  }
+}
