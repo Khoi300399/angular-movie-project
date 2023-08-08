@@ -1,55 +1,28 @@
 @import "../../../assets/scss/helpers/variables";
 @import "../../../assets/scss/helpers/mixins";
 
-.form-forget {
-  margin-bottom: 20px;
-  @include flexBox(center, flex-end);
-  a {
-    @include text(1.4rem, 500, $third-color, right);
-    transition: all 0.2s linear;
-  }
-  &:hover a {
-    color: #f5f5f5;
-  }
-}
-.submit {
-  user-select: none;
-  width: 100%;
-  background: $third-color;
-  border-radius: 10px;
-  padding: 10px;
-  @include text(1.6rem, 600, $white-color, center);
-  transition: all 0.3s linear;
-  &:hover {
-    background: #f5f5f5;
-    color: $third-color;
-  }
-}
-.loading {
-  @include size(30px);
-  margin-inline: auto;
-  border-radius: 50%;
-  border: 3px solid $white-color;
-  border-color: $white-color transparent $white-color transparent;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.login {
+  @include size(100vw, 100vh);
+  .form-forget {
+    margin-bottom: 20px;
+    @include flexBox(center, flex-end);
+    a {
+      @include text(1.4rem, 500, $third-color, right);
+      transition: all 0.2s linear;
+    }
+    &:hover a {
+      color: #f5f5f5;
+    }
   }
 }
 
 @include minWidth(991.98px) {
-  .form-forget {
-    margin-bottom: 30px;
-    a {
-      font-size: 1.6rem;
+  .login {
+    .form-forget {
+      margin-bottom: 30px;
+      a {
+        font-size: 1.6rem;
+      }
     }
-  }
-  .submit {
-    font-size: 2rem;
   }
 }

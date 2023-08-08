@@ -14,7 +14,7 @@
     *ngIf="password"
     type="button"
     class="form-eye"
-    (click)="onToggleShowEye()"
+    (click)="onToggleEye()"
   >
     <span *ngIf="!isShowEye"
       ><svg
@@ -69,28 +69,30 @@
     class="form-message"
     *ngIf="control.touched && control.dirty && control.invalid"
   >
-    <small *ngIf="control.errors?.['required']"
+    <small *ngIf="control.hasError('required')"
       ><i class="fa-solid fa-circle-exclamation"></i> This field is
       required.</small
     >
     <small
-      *ngIf="control.errors?.['whitespace'] && !control.errors?.['required']"
+      *ngIf="control.hasError('whitespace') && !control.hasError('required')"
       ><i class="fa-solid fa-circle-exclamation"></i> This field is only
       whitespace.</small
     >
-    <small *ngIf="control.errors?.['minlength']"
+    <small *ngIf="control.hasError('minlength')"
       ><i class="fa-solid fa-circle-exclamation"></i> Please enter at least
       {{control.errors?.['minlength'].requiredLength}} characters.</small
     >
-    <small *ngIf="control.errors?.['maxlength']"
+    <small *ngIf="control.hasError('maxlength')"
       ><i class="fa-solid fa-circle-exclamation"></i> Please enter no more than
       {{control.errors?.['maxlength'].requiredLength}} characters.</small
     >
-    <small *ngIf="control.errors?.['pattern']">
+    <small
+      *ngIf="control.hasError('pattern') && !control.hasError('minlength')"
+    >
       <i class="fa-solid fa-circle-exclamation"></i> Please match the requested
       format.</small
     >
-    <small *ngIf="control.errors?.['email']">
+    <small *ngIf="control.hasError('email')">
       <i class="fa-solid fa-circle-exclamation"></i> Please enter a valid email
       address.</small
     >

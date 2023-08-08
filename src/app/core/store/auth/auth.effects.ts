@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import * as AuthActions from './auth.actions';
 import { ACCESS_TOKEN, AUTH } from '../../utils/interceptor.util';
 import { AuthRes } from './auth.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthEffects {
@@ -22,31 +23,26 @@ export class AuthEffects {
               response.content.accessToken
             );
           }),
-          map((response: AuthRes) =>
-            AuthActions.loginSuccess({ auth: response.content })
-          ),
-          catchError(({ error }) =>
-            of(AuthActions.loginFailed({ error: error.statusCode }))
-          )
+          map((response: AuthRes) => {
+            this.toastr.success('Login Successfully!');
+            return AuthActions.loginSuccess({ auth: response.content });
+          }),
+          catchError(({ error }) => {
+            this.toastr.error(
+              'Incorrect username or password',
+              'Login Failure!'
+            );
+            return of(AuthActions.loginFailed({ error: error.statusCode }));
+          })
         )
       )
     )
   );
 
-  //   loginSuccess$ = createEffect(
-  //     () =>
-  //       this.actions$.pipe(
-  //         ofType(authActions.loginSuccess),
-  //         tap((action) => {
-  //           this.localStorageService.setItem('user', action.user);
-  //         })
-  //       ),
-  //     { dispatch: false }
-  //   );
-
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private toastr: ToastrService
   ) {}
 }

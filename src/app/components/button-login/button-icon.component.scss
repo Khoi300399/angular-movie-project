@@ -1,5 +1,5 @@
-@import "../../../../assets/scss/helpers/variables";
-@import "../../../../assets/scss/helpers/mixins";
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
 .list-btn {
   @include flexBox(center, space-between);
   .btn-login {

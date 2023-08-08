@@ -25,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EffectsModule.forRoot([]),
     CoreModule,
     BrowserAnimationsModule,
+
     CarouselModule,
     FormModule,
   ],

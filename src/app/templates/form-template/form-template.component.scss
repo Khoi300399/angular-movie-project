@@ -3,9 +3,8 @@
 .form-template {
   font-family: $third-font;
   @include flexBox(center, center);
-  @include size(100vw, 100vh);
-  background: url("../../../assets/images/bg.jpg") no-repeat center center /
-    cover;
+  @include size(100%);
+  background: url("../../../assets/images/bg.jpg") no-repeat center / cover;
   .form-container {
     @include size(327px, auto);
     padding: 50px;

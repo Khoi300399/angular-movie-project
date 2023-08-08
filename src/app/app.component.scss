@@ -1,0 +1,5 @@
+@import "../assets/scss/helpers/variables";
+@import "../assets/scss/helpers/mixins";
+:host {
+  @include size(100vw, 100vh);
+}

@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NoWhiteSpace } from '../../shared/validators/no-white-space.validator';
 import { Store, select } from '@ngrx/store';
 import { login } from '../../core/store/auth/auth.actions';
 import { Credentials } from '../../core/store/auth/auth.model';
 import { AppState } from '../../core/store/app.state';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of, switchMap, tap } from 'rxjs';
 import { vmFromLatest } from '../../core/utils/operators.util';
-import { authStatusSelector } from '../../core/store/auth/auth.selector';
+import {
+  authErrorSelector,
+  authStatusSelector,
+} from '../../core/store/auth/auth.selector';
+import { ToastrService } from 'ngx-toastr';
 type AuthVm = {
-  isloading: Observable<boolean>;
+  isLoading: Observable<boolean>;
 };
 @Component({
   selector: 'login',
@@ -49,19 +53,22 @@ export class LoginComponent {
     ],
   });
 
-  onLogin(form: FormGroup) {
-    let credentials: Credentials = form.value;
+  onLogin(formGroup: FormGroup) {
+    let credentials: Credentials = formGroup.value;
     this.store.dispatch(login({ credentials }));
     this.vm$ = vmFromLatest<AuthVm>({
-      isloading: this.store.pipe(
-        select(authStatusSelector),
-        map((status) => status === 'loading')
-      ),
+      isLoading:
+        this.store.pipe(
+          select(authStatusSelector),
+          map((status) => status === 'loading')
+        ) || of(false),
     });
+    this.signInForm.reset();
   }
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private toastr: ToastrService
   ) {}
 }
