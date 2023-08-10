@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  OnChanges,
-  EventEmitter,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -18,7 +11,6 @@ export class ButtonSubmitComponent implements OnChanges {
   @Input() loading?: Observable<boolean>;
   @Input() formGroup!: FormGroup;
   @Input() ngClass!: string;
-  @Output() submit = new EventEmitter();
   isLoading: boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {

@@ -1,17 +1,15 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NoWhiteSpace } from '../../shared/validators/no-white-space.validator';
 import { Store, select } from '@ngrx/store';
 import { login } from '../../core/store/auth/auth.actions';
 import { Credentials } from '../../core/store/auth/auth.model';
 import { AppState } from '../../core/store/app.state';
-import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { Observable, map, of, takeUntil } from 'rxjs';
 import { vmFromLatest } from '../../core/utils/operators.util';
-import {
-  authErrorSelector,
-  authStatusSelector,
-} from '../../core/store/auth/auth.selector';
-import { ToastrService } from 'ngx-toastr';
+import { authStatusSelector } from '../../core/store/auth/auth.selector';
+import { PASSWORD_PATTERN } from '../../shared/validators/pattern.validator';
+import { DestroyService } from '../../core/services/destroy.service';
 type AuthVm = {
   isLoading: Observable<boolean>;
 };
@@ -20,12 +18,19 @@ type AuthVm = {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   vm$!: Observable<AuthVm>;
-
   readonly taiKhoan: string = 'taiKhoan';
   readonly matKhau: string = 'matKhau';
-
+  ngOnInit(): void {
+    this.vm$ = vmFromLatest<AuthVm>({
+      isLoading:
+        this.store.pipe(
+          select(authStatusSelector),
+          map((status) => status === 'loading')
+        ) || of(false),
+    }).pipe(takeUntil(this.destroy$));
+  }
   // signInForm: FormGroup = new FormGroup({
   //   [this.taiKhoan]: new FormControl(''),
   //   [this.matKhau]: new FormControl(''),
@@ -46,9 +51,8 @@ export class LoginComponent {
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(32),
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,31}$/
-        ),
+        Validators.pattern(PASSWORD_PATTERN),
+        NoWhiteSpace,
       ]),
     ],
   });
@@ -56,19 +60,13 @@ export class LoginComponent {
   onLogin(formGroup: FormGroup) {
     let credentials: Credentials = formGroup.value;
     this.store.dispatch(login({ credentials }));
-    this.vm$ = vmFromLatest<AuthVm>({
-      isLoading:
-        this.store.pipe(
-          select(authStatusSelector),
-          map((status) => status === 'loading')
-        ) || of(false),
-    });
-    this.signInForm.reset();
+
+    formGroup.reset();
   }
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<AppState>,
-    private toastr: ToastrService
+    private destroy$: DestroyService
   ) {}
 }

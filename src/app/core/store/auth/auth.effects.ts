@@ -28,11 +28,25 @@ export class AuthEffects {
             return AuthActions.loginSuccess({ auth: response.content });
           }),
           catchError(({ error }) => {
-            this.toastr.error(
-              'Incorrect username or password',
-              'Login Failure!'
-            );
-            return of(AuthActions.loginFailed({ error: error.statusCode }));
+            this.toastr.error(error.content, 'Login Failure!');
+            return of(AuthActions.loginFailed({ error: error.message }));
+          })
+        )
+      )
+    )
+  );
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.register),
+      exhaustMap(({ user }) =>
+        this.authService.register(user).pipe(
+          map((response: AuthRes) => {
+            this.toastr.success('Register Successfully!');
+            return AuthActions.registerSuccess();
+          }),
+          catchError(({ error }) => {
+            this.toastr.error(error.content, 'Register Failure!');
+            return of(AuthActions.registerFailed({ error: error.message }));
           })
         )
       )

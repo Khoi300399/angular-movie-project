@@ -1,11 +1,15 @@
-<button
-  class="submit"
-  [disabled]="formGroup.invalid || isLoading"
-  (click)="submit.emit()"
-  [class.active]="isLoading"
->
-  <ng-container *ngIf="isLoading; then loading; else noLoading"></ng-container>
-</button>
+<div class="wrapper-btn">
+  <button
+    type="submit"
+    class="submit"
+    [disabled]="formGroup.invalid || isLoading"
+    [class.active]="isLoading"
+  >
+    <ng-container
+      *ngIf="isLoading; then loading; else noLoading"
+    ></ng-container>
+  </button>
+</div>
 <ng-template #loading>
   <div class="loading"></div>
 </ng-template>

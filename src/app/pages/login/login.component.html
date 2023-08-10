@@ -1,5 +1,10 @@
 <section class="login">
-  <form-template>
+  <form-template
+    heading="Welcome Back!"
+    title="Dont have an account?"
+    sub="Sign up"
+    link="/register"
+  >
     <form [formGroup]="signInForm" (ngSubmit)="onLogin(signInForm)">
       <input-form
         [name]="taiKhoan"
@@ -24,7 +29,6 @@
       <button-submit
         [loading]="(vm$ | async)?.isLoading"
         [formGroup]="signInForm"
-        (submit)="onLogin(signInForm)"
         >Sign in</button-submit
       >
     </form>

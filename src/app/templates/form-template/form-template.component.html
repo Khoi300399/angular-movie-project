@@ -1,7 +1,10 @@
-<section class="form-template">
+<div class="bg-form"></div>
+<section class="form-template" [class.grid]="grid">
   <div class="form-container">
-    <h2 class="form-heading">Get’s started.</h2>
-    <p class="form-title">Don’t have an account?<a href="#!"> Sign up </a></p>
+    <h2 class="form-heading">{{ heading }}</h2>
+    <p class="form-title">
+      {{ title }}<a [href]="link"> {{ sub }} </a>
+    </p>
     <button-icon></button-icon>
     <ng-content select="form"></ng-content>
   </div>

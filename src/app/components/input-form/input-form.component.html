@@ -1,13 +1,17 @@
 <div class="form-field">
   <input
     class="form-input"
+    [class.error]="control.touched && control.dirty && control.invalid"
     [id]="name"
     [type]="type"
     [name]="name"
     [placeholder]="placeholder"
     [formControl]="control"
   />
-  <label class="form-label" [for]="name"
+  <label
+    class="form-label"
+    [for]="name"
+    [class.error]="control.touched && control.dirty && control.invalid"
     >{{ label }} <sup *ngIf="required">*</sup></label
   >
   <button

@@ -1,19 +1,29 @@
 @import "../../../assets/scss/helpers/variables";
 @import "../../../assets/scss/helpers/mixins";
+.bg-form {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url("../../../assets/images/bg.jpg") no-repeat center / cover;
+  background-attachment: fixed;
+  z-index: -1;
+}
 .form-template {
   font-family: $third-font;
+  padding-block: 30px;
   @include flexBox(center, center);
-  @include size(100%);
-  background: url("../../../assets/images/bg.jpg") no-repeat center / cover;
   .form-container {
     @include size(327px, auto);
     padding: 50px;
-    @include absoluteCenter("both");
     background: $bg-form;
     border-radius: 15px;
+    box-shadow: 0px 20px 60px -6px rgba(255, 255, 255, 0.3);
   }
   .form-heading {
     @include text(2rem, 600, $white-color, center);
+    text-transform: capitalize;
     line-height: 28px; /* 150% */
   }
   .form-title {
@@ -28,14 +38,21 @@
   }
 }
 @include minWidth(991.98px) {
+  .form-template.grid {
+    .form-container {
+      @include size(660px, auto);
+    }
+  }
   .form-template {
     .form-container {
-      @include size(556px, auto);
+      @include size(456px, auto);
     }
     .form-heading {
-      font-size: 2.5rem;
+      font-size: 3rem;
+      margin-bottom: 10px;
     }
     .form-title {
+      margin-bottom: 20px;
       font-size: 1.4rem;
       a {
         font-size: 1.4rem;

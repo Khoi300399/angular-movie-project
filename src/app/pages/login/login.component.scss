@@ -2,16 +2,16 @@
 @import "../../../assets/scss/helpers/mixins";
 
 .login {
-  @include size(100vw, 100vh);
+  @include size(100vw);
   .form-forget {
     margin-bottom: 20px;
     @include flexBox(center, flex-end);
     a {
       @include text(1.4rem, 500, $third-color, right);
       transition: all 0.2s linear;
-    }
-    &:hover a {
-      color: #f5f5f5;
+      &:hover {
+        color: #f5f5f5;
+      }
     }
   }
 }

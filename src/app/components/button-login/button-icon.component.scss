@@ -1,12 +1,18 @@
 @import "../../../assets/scss/helpers/variables";
 @import "../../../assets/scss/helpers/mixins";
 .list-btn {
-  @include flexBox(center, space-between);
+  @include flexBox(center, center);
+  gap: 6.596px;
   .btn-login {
     @include flexBox(center, center);
     padding: 6.596px 19.787px;
     border-radius: 10px;
     border: 1px solid $border-color;
+
+    transition: all 0.3s ease;
+    &:hover {
+      border-color: #ff3d71;
+    }
   }
 }
 .sub-title {
@@ -30,8 +36,9 @@
 }
 @include minWidth(991.98px) {
   .list-btn {
+    gap: 10px;
     .btn-login {
-      width: 130px;
+      width: 110px;
       padding: 10px 30px;
     }
   }
@@ -39,7 +46,7 @@
     font-size: 1.4rem;
     &:before,
     &:after {
-      width: 150px;
+      width: 105px;
     }
     &:before {
       left: -10px;

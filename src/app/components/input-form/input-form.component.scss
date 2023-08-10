@@ -4,6 +4,9 @@
   position: relative;
   margin-bottom: 30px;
 }
+.form-input.error {
+  border-color: $third-color;
+}
 .form-input {
   width: 100%;
   padding: 10px 50px 10px 20px;
@@ -19,16 +22,11 @@
   &:focus::placeholder {
     color: $placeholder-color;
   }
-  &:focus,
-  &:not(:placeholder-shown) {
-    border-color: $third-color;
-  }
   &:focus + .form-label,
   &:not(:placeholder-shown) + .form-label {
     top: 0;
     left: 10px;
     background: $bg-form;
-    color: $third-color;
   }
   &:focus + .form-label sup,
   &:not(:placeholder-shown) + .form-label sup {
@@ -36,10 +34,18 @@
     visibility: visible;
   }
 }
-input.form-input:-internal-autofill-selected {
-  background: transparent !important;
+input.form-input:-webkit-autofill,
+input.form-input:-webkit-autofill:hover,
+input.form-input:-webkit-autofill:focus,
+input.form-input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: $title-color;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px $bg-form;
 }
-
+.form-label.error {
+  color: $third-color;
+}
 .form-label {
   @include text(1.2rem, 600, $title-color);
   @include absoluteCenter("top");
@@ -77,6 +83,6 @@ input.form-input:-internal-autofill-selected {
     font-size: 1.6rem;
   }
   .form-input {
-    padding: 20px 50px 20px 20px;
+    padding: 15px 50px 15px 20px;
   }
 }

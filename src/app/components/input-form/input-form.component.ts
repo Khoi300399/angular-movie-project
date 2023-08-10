@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'input-form',
@@ -12,8 +13,8 @@ export class InputFormComponent implements OnInit {
   @Input() type!: string;
   @Input() placeholder: string = '';
   @Input() label: string = '';
-  @Input() password!: boolean;
   @Input() required: boolean = false;
+  @Input() password!: boolean;
   isShowEye: boolean = false;
   ngOnInit(): void {
     this.password ? (this.type = 'password') : (this.type = 'text');
@@ -21,5 +22,6 @@ export class InputFormComponent implements OnInit {
   onToggleEye() {
     this.isShowEye = !this.isShowEye;
     this.isShowEye ? (this.type = 'text') : (this.type = 'password');
+    this.control.setErrors;
   }
 }

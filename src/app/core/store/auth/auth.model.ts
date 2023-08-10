@@ -2,12 +2,13 @@ export interface Credentials {
   taiKhoan: string;
   matKhau: string;
 }
-export interface AuthRes {
-  statusCode: number;
-  message: string;
-  content: Auth;
-  dateTime: Date;
-  messageConstants: null;
+
+export interface RegisterModel {
+  taiKhoan: string;
+  matKhau: string;
+  email: string;
+  soDt: string;
+  hoTen: string;
 }
 
 export interface Auth {
@@ -18,4 +19,11 @@ export interface Auth {
   maNhom: string;
   maLoaiNguoiDung: string;
   accessToken: string;
+}
+export interface AuthRes {
+  statusCode: number;
+  message: string;
+  content: Auth;
+  dateTime: Date;
+  messageConstants: null;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthRes, Credentials } from '../store/auth/auth.model';
+import { AuthRes, Credentials, RegisterModel } from '../store/auth/auth.model';
 import { DOMAIN } from '../utils/interceptor.util';
 import { Observable } from 'rxjs';
 
@@ -13,5 +13,8 @@ export class AuthService {
       `${DOMAIN}/QuanLyNguoiDung/DangNhap`,
       credentials
     );
+  }
+  register(user: RegisterModel): Observable<AuthRes> {
+    return this.http.post<AuthRes>(`${DOMAIN}/QuanLyNguoiDung/DangKy`, user);
   }
 }

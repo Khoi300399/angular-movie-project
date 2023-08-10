@@ -7,6 +7,7 @@ import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { InputFormComponent } from '../../components/input-form/input-form.component';
 import { ButtonSubmitComponent } from '../../components/button-submit/button-submit.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RegisterComponent } from '../../pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
     ButtonIconComponent,
     InputFormComponent,
     ButtonSubmitComponent,
+    RegisterComponent,
   ],
   providers: [
     {
