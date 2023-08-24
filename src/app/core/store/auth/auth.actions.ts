@@ -1,13 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { Auth, Credentials, RegisterModel } from './auth.model';
 
-export const LOGIN = '@Auth/Login';
-export const LOGIN_SUCCESS = '@Auth/LoginSuccess';
-export const LOGIN_FAILED = '@Auth/LoginFailed';
+const LOGIN = '@Auth/Login';
+const LOGIN_SUCCESS = '@Auth/LoginSuccess';
+const LOGIN_FAILED = '@Auth/LoginFailed';
+const LOGOUT = '@Auth/Logout';
 
-export const REGISTER = '@Auth/createAccount';
-export const REGISTER_SUCCESS = '@Auth/createAccountSuccess';
-export const REGISTER_FAILED = '@Auth/createAccountFailed';
+const REGISTER = '@Auth/createAccount';
+const REGISTER_SUCCESS = '@Auth/createAccountSuccess';
+const REGISTER_FAILED = '@Auth/createAccountFailed';
 
 // LOGIN
 export const login = createAction(LOGIN, props<{ credentials: Credentials }>());
@@ -30,6 +31,8 @@ export const registerFailed = createAction(
   REGISTER_FAILED,
   props<{ error?: string }>()
 );
+// LOGOUT
+export const logOut = createAction(LOGOUT);
 
 // export type AuthActions =
 //   | ActionType<typeof login>

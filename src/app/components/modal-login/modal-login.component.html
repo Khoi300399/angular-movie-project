@@ -1,0 +1,40 @@
+<section class="login">
+  <form-template heading="Đăng Nhập">
+    <div class="form-title">
+      Quý khách chưa có tài khoản?
+      <button class="btn-modal" (click)="openModalRegister()">Đăng ký</button>
+    </div>
+    <button-icon></button-icon>
+    <form [formGroup]="signInForm" (ngSubmit)="onLogin(signInForm)">
+      <input-form
+        [name]="taiKhoan"
+        placeholder="Nhập tài khoản..."
+        label="Tài khoản"
+        [control]="$any(signInForm.get(taiKhoan))"
+        [required]="true"
+      ></input-form>
+      <input-form
+        [name]="matKhau"
+        placeholder="Nhập mật khẩu..."
+        label="Mật khẩu"
+        [control]="$any(signInForm.get(matKhau))"
+        [password]="true"
+        [required]="true"
+      ></input-form>
+
+      <div class="form-forget">
+        <a href="#!">Quên mật khẩu</a>
+      </div>
+      <div class="wrapper-btn">
+        <button
+          type="submit"
+          class="submit"
+          [disabled]="(loading$ | async) || signInForm.invalid"
+        >
+          <div class="loading" *ngIf="loading$ | async"></div>
+          <span *ngIf="!(loading$ | async)">Đăng nhập</span>
+        </button>
+      </div>
+    </form>
+  </form-template>
+</section>

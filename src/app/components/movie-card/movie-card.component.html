@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="content-card">
+    <div class="hot" *ngIf="movie.hot">
+      <img src="../../../assets/images/hot.png" alt="hot" />
+    </div>
+    <button type="button" class="watch" (click)="openDialog(movie.trailer)">
+      <img src="../../../assets/images/play.png" alt="play" />
+    </button>
+    <div class="thumb">
+      <img [src]="movie.hinhAnh" alt="name" />
+    </div>
+    <div class="content">
+      <h3 class="name">{{ movie.tenPhim }}</h3>
+      <div class="movie-meta">
+        <span class="date"
+          >Khởi chiếu: {{ movie.ngayKhoiChieu | date : "dd-MM-yyyy" }}</span
+        >
+        <span class="rate"
+          >{{ movie.danhGia }} <i class="bx bxs-star"></i
+        ></span>
+      </div>
+      <p class="decs">
+        {{ movie.moTa }}
+      </p>
+    </div>
+    <div class="icon">
+      <i class="fa-solid fa-angle-up"></i>
+    </div>
+  </div>
+  <div class="action-card">
+    <button class="btn-booking" type="button">Đặt vé</button>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<section class="carousel">
+  <owl-carousel-o [options]="owlCarousel">
+    <ng-template carouselSlide *ngFor="let banner of banners$ | async">
+      <div
+        class="slider"
+        [ngStyle]="{ 'background-image': 'url(' + banner.hinhAnh + ')' }"
+      >
+        <div class="container">
+          <div class="play-icon" (click)="openDialog(banner.trailer)">
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              width="80px"
+              height="80px"
+              viewBox="0 0 213.7 213.7"
+              enable-background="new 0 0 213.7 213.7"
+              xml:space="preserve"
+            >
+              <polygon
+                class="triangle"
+                fill="none"
+                stroke-width="7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                points="73.5,62.5 148.5,105.8 73.5,149.1 "
+              ></polygon>
+              <circle
+                class="circle"
+                fill="none"
+                stroke-width="7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="10"
+                cx="106.8"
+                cy="106.8"
+                r="103.3"
+              ></circle>
+            </svg>
+          </div>
+          <div class="content">
+            <div class="row h-100">
+              <div class="col-8 col-md-6">
+                <div class="carousel-left">
+                  <div class="wrapper-btn">
+                    <button
+                      class="btn-play"
+                      type="button"
+                      (click)="openDialog(banner.trailer)"
+                    >
+                      <i class="bx bx-play"></i>
+                      <span>Phát</span>
+                    </button>
+                    <button class="btn-detail" type="button">
+                      <i class="bx bx-error-circle"></i>
+                      <span>Thông tin khác</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 col-md-6"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </owl-carousel-o>
+</section>

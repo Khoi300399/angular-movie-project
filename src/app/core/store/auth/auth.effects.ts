@@ -8,6 +8,8 @@ import * as AuthActions from './auth.actions';
 import { ACCESS_TOKEN, AUTH } from '../../utils/interceptor.util';
 import { AuthRes } from './auth.model';
 import { ToastrService } from 'ngx-toastr';
+import { ModalLoginComponent } from '../../../components/modal-login/modal-login.component';
+import { ModalRegisterComponent } from '../../../components/modal-register/modal-register.component';
 
 @Injectable()
 export class AuthEffects {
@@ -24,28 +26,29 @@ export class AuthEffects {
             );
           }),
           map((response: AuthRes) => {
-            this.toastr.success('Login Successfully!');
+            this.toastr.success('Đăng nhập thành công!');
             return AuthActions.loginSuccess({ auth: response.content });
           }),
           catchError(({ error }) => {
-            this.toastr.error(error.content, 'Login Failure!');
+            this.toastr.error(error.content, 'Đăng nhập thất bại!');
             return of(AuthActions.loginFailed({ error: error.message }));
           })
         )
       )
     )
   );
+
   register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.register),
       exhaustMap(({ user }) =>
         this.authService.register(user).pipe(
           map((response: AuthRes) => {
-            this.toastr.success('Register Successfully!');
+            this.toastr.success('Đăng ký thành công!');
             return AuthActions.registerSuccess();
           }),
           catchError(({ error }) => {
-            this.toastr.error(error.content, 'Register Failure!');
+            this.toastr.error(error.content, 'Đăng ký thất bại!');
             return of(AuthActions.registerFailed({ error: error.message }));
           })
         )

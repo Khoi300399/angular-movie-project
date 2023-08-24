@@ -1,3 +1,4 @@
+import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -14,4 +15,5 @@ export class FormTemplateComponent implements OnInit {
   ngOnInit(): void {
     this.grid = this.grid;
   }
+  constructor(public dialogRef: DialogRef) {}
 }

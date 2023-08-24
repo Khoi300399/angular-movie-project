@@ -2,16 +2,15 @@
   <button
     type="submit"
     class="submit"
-    [disabled]="formGroup.invalid || isLoading"
-    [class.active]="isLoading"
+    [disabled]="loading"
+    [class.active]="loading"
   >
-    <ng-container
-      *ngIf="isLoading; then loading; else noLoading"
-    ></ng-container>
+    <div class="loading" *ngIf="loading"></div>
+    <span *ngIf="!loading"><ng-content></ng-content></span>
   </button>
 </div>
 <ng-template #loading>
-  <div class="loading"></div>
+  <div></div>
 </ng-template>
 <ng-template #noLoading>
   <ng-content></ng-content>

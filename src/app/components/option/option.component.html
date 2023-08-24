@@ -1,0 +1,9 @@
+<li class="options-item active" [class.active]="isActive" (click)="onClick()">
+  <div class="thumb" *ngIf="image">
+    <img [src]="image" alt="image" />
+  </div>
+  <div class="content">
+    <h3 class="name">{{ content }}</h3>
+    <span class="icon"><i class="bx bx-check"></i></span>
+  </div>
+</li>

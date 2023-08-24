@@ -1,0 +1,78 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.tab-header {
+  position: relative;
+  display: inline-block;
+  margin-inline: auto;
+  padding: 20px 10px;
+  margin-bottom: 30px;
+  @include flexBox(center, center);
+}
+.tab-item {
+  @include flexBox(center, center);
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 5px solid $darkStroke;
+  user-select: none;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background: $darkStroke;
+  }
+  .tab-icon {
+    color: $iconColor;
+    font-size: 1.8rem;
+  }
+  .tab-text {
+    color: $text3;
+    font-weight: 500;
+    font-size: 1.6rem;
+  }
+}
+.line {
+  @include size(0, 5px);
+  position: absolute;
+  left: 10px;
+  bottom: 20px;
+  border-radius: 2px;
+  background: $primaryColor;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  .tab-text,
+  .tab-icon {
+    color: $primaryColor;
+  }
+}
+
+.tab-pane {
+  display: none;
+}
+.tab-pane.active {
+  display: block;
+}
+@include minWidth(992px) {
+  .tab-item {
+    .tab-icon {
+      font-size: 2.2rem;
+    }
+    .tab-text {
+      font-size: 2rem;
+    }
+  }
+}
+@include minWidth(1200px) {
+  .tab-header {
+    margin-bottom: 50px;
+  }
+  .tab-item {
+    .tab-icon {
+      font-size: 2.5rem;
+    }
+    .tab-text {
+      font-size: 2.2rem;
+    }
+  }
+}

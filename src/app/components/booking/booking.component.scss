@@ -1,0 +1,25 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+
+.booking {
+  padding: 20px 0;
+  font-family: $secondary-font;
+}
+.button-submit {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 35px;
+  background: $secondaryColor;
+  background-size: 200%;
+  font-size: 1.6rem;
+  color: $pureWhite;
+  transition: all 0.3s ease;
+  &:hover {
+    background-position: right center;
+  }
+}
+
+@include minWidth(992px) {
+  .booking {
+  }
+}

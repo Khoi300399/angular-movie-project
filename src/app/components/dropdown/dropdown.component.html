@@ -1,0 +1,29 @@
+<div class="dropdown" appClickOutside (appClickOutside)="onClickedOutside()">
+  <div class="select" #selected (click)="handleToggleDropdown()">
+    <span class="selected">{{ selectedValue }}</span>
+    <span class="selected-icon">
+      <i
+        class="bx"
+        [ngClass]="{
+          'bxs-up-arrow': isActive,
+          'bxs-down-arrow': !isActive
+        }"
+      ></i>
+    </span>
+  </div>
+  <div class="options" [class.active]="isActive">
+    <div class="search" *ngIf="search">
+      <span class="search-icon">
+        <i class="bx bx-search"></i>
+      </span>
+      <input
+        type="text"
+        placeholder="Tìm kiếm phim"
+        [formControl]="queryControl"
+      />
+    </div>
+    <ul class="options-list">
+      <ng-content></ng-content>
+    </ul>
+  </div>
+</div>

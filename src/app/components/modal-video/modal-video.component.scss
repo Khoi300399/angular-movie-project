@@ -1,0 +1,46 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.modal {
+  position: relative;
+  display: block;
+  border-radius: 5px;
+  padding: 16px;
+  width: 80vw;
+  padding-top: 56.25%;
+  animation: animateScale 0.5s ease-in-out;
+}
+.btn-closes {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  svg {
+    background-color: #181818;
+    border-radius: 50%;
+    padding: 8px;
+    color: $text3;
+    @include size(36px);
+  }
+  font-size: 2rem;
+  @include flexBox(center, center);
+}
+iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+}
+@keyframes animateScale {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@include minWidth(991.98px) {
+  .modal {
+    width: 60vw;
+  }
+}

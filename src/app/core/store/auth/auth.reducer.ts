@@ -37,6 +37,15 @@ export const authReducer = createReducer(
       status: 'error',
       error: action.error,
     })
+  ),
+  on(
+    AuthActions.logOut,
+    (state): AuthState => ({
+      ...state,
+      status: 'idle',
+      error: null,
+      auth: null,
+    })
   )
 );
 
@@ -50,7 +59,6 @@ export const registerReducer = createReducer(
     AuthActions.registerSuccess,
     (state): AuthState => ({
       ...state,
-      status: 'loaded',
     })
   ),
   on(

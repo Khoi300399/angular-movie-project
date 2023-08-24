@@ -1,7 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AuthState } from './auth.state';
+import { AuthState, RegisterState } from './auth.state';
 
 const featureAuth = createFeatureSelector<AuthState>('feature_auth');
+const featureARegister =
+  createFeatureSelector<RegisterState>('feature_register');
 
 export const authSeclector = createSelector(featureAuth, (state) => state.auth);
 export const authStatusSelector = createSelector(
@@ -14,10 +16,10 @@ export const authErrorSelector = createSelector(
 );
 
 export const registerStatusSelector = createSelector(
-  featureAuth,
+  featureARegister,
   (state) => state.status
 );
 export const registerErrorSelector = createSelector(
-  featureAuth,
+  featureARegister,
   (state) => state.error
 );

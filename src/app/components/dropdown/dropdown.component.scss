@@ -1,0 +1,79 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.dropdown {
+  width: 100%;
+  position: relative;
+  .select {
+    @include flexBox(center, space-between);
+    height: 55px;
+    padding: 15px;
+    border-radius: 5px;
+    background: #e6e6e6 url("../../../assets/images/bg-select.png") no-repeat;
+    box-shadow: 0 3px 4px 0 hsla(0, 0%, 71.4%, 0.884);
+    cursor: pointer;
+    color: #333;
+    user-select: none;
+  }
+  .selected {
+    width: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font: {
+      size: 1.7rem;
+    }
+    &-icon i {
+      color: #333;
+      font: {
+        size: 1.6rem;
+      }
+    }
+  }
+  .search {
+    width: 100%;
+    border: 1px solid $darkStroke;
+    border-radius: 8px;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+    @include flexBox(center);
+    gap: 10px;
+    &-icon {
+      @include flexBox(center, center);
+      i {
+        font-size: 1.6rem;
+      }
+    }
+    input {
+      width: 100%;
+      outline: none;
+      border: none;
+      &::placeholder {
+        color: $text2;
+      }
+    }
+  }
+  .options {
+    position: absolute;
+    top: 110%;
+    z-index: 50;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: $pureWhite;
+    opacity: 0;
+    visibility: hidden;
+    user-select: none;
+    transition: all 0.3s;
+    &-list {
+      padding: 0;
+      margin: 0;
+      max-height: 240px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+  .options.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}

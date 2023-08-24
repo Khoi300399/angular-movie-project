@@ -1,0 +1,87 @@
+<section class="booking">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="mb-3 col-12 col-lg-6 col-xxl-4">
+        <dropdown
+          [selectedValue]="selectedMovie || 'Chọn phim'"
+          [search]="true"
+        >
+          <dropdown-option
+            *ngFor="let movie of movies$ | async"
+            [isActive]="movie.tenPhim === selectedMovie"
+            [image]="movie.hinhAnh"
+            [content]="movie.tenPhim"
+            [data]="movie"
+            (optionClick)="onMovieOptioneClick($event)"
+          ></dropdown-option>
+        </dropdown>
+      </div>
+      <div class="mb-3 col-12 col-lg-6 col-xxl-3">
+        <dropdown [selectedValue]="selectedCinema || 'Rạp'">
+          <ng-container *ngIf="cumRapRender$ | async as cumRap">
+            <ng-container *ngIf="cumRap && cumRap.length > 0; else noCumRap">
+              <dropdown-option
+                *ngFor="let rap of cumRap"
+                [isActive]="rap.tenCumRap === selectedCinema"
+                [image]="rap.hinhAnh"
+                [content]="rap.tenCumRap"
+                [data]="rap"
+                (optionClick)="onCinemaOptioneClick($event)"
+              ></dropdown-option>
+            </ng-container>
+          </ng-container>
+          <ng-template #noCumRap>
+            <dropdown-option content="Vui lòng chọn phim"></dropdown-option
+          ></ng-template>
+        </dropdown>
+      </div>
+      <div class="mb-3 col-12 col-lg-5 col-xxl-2">
+        <dropdown
+          [selectedValue]="
+            (selectedDate | date : 'dd/MM/yyyy' | stringify) || 'Ngày chiếu'
+          "
+        >
+          <ng-container *ngIf="ngayChieuRender$ | async as dateList">
+            <ng-container *ngIf="dateList && dateList.length > 0; else noDate">
+              <dropdown-option
+                *ngFor="let date of dateList"
+                [isActive]="date === selectedDate"
+                [content]="date"
+                [data]="date"
+                (optionClick)="onDayOptioneClick($event)"
+              ></dropdown-option>
+            </ng-container>
+          </ng-container>
+          <ng-template #noDate>
+            <dropdown-option content="Vui lòng chọn rạp"></dropdown-option
+          ></ng-template>
+        </dropdown>
+      </div>
+      <div class="mb-3 col-12 col-lg-5 col-xxl-2">
+        <dropdown
+          [selectedValue]="selectedTime || 'Suất chiếu'"
+          [search]="false"
+        >
+          <ng-container *ngIf="suatChieuRender$ | async as timeList">
+            <ng-container *ngIf="timeList && timeList.length > 0; else noTime">
+              <dropdown-option
+                *ngFor="let time of timeList"
+                [isActive]="time === selectedTime"
+                [content]="time"
+                [data]="time"
+                (optionClick)="onTimeOptioneClick($event)"
+              ></dropdown-option>
+            </ng-container>
+          </ng-container>
+          <ng-template #noTime>
+            <dropdown-option content="Vui lòng chọn ngày"></dropdown-option
+          ></ng-template>
+        </dropdown>
+      </div>
+
+      <div class="mb-3 col-12 col-lg-2 col-xxl-1">
+        <button type="button" class="button-submit">Đặt vé</button>
+      </div>
+    </div>
+  </div>
+</section>

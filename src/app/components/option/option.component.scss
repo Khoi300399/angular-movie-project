@@ -1,0 +1,46 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+
+.options-item.active {
+  .icon {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.options-item.active {
+  background: $secondaryColor80;
+}
+
+.options-item {
+  position: relative;
+  @include flexBox(center);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  gap: 10px;
+  .thumb {
+    @include size(35px);
+    border-radius: 4px;
+    img {
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .content {
+    @include flexBox(center, space-between);
+    width: 100%;
+  }
+  .name {
+    @include text(1.4rem, 400, #333);
+    margin-bottom: 0;
+  }
+  .icon {
+    font-size: 1.8rem;
+    color: $secondaryColor;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  }
+}

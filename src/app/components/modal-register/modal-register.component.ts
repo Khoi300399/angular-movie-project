@@ -1,41 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppState } from '../../core/store/app.state';
-import { Store, select } from '@ngrx/store';
 import { NoWhiteSpace } from '../../shared/validators/no-white-space.validator';
 import {
   NAME_PATTERN,
   PASSWORD_PATTERN,
   PHONE_PATTERN,
 } from '../../shared/validators/pattern.validator';
-import { registerStatusSelector } from '../../core/store/auth/auth.selector';
-import { Observable, map, of, takeUntil } from 'rxjs';
 import { register } from '../../core/store/auth/auth.actions';
-import { vmFromLatest } from '../../core/utils/operators.util';
+import { AppState } from '../../core/store/app.state';
+import { Store, select } from '@ngrx/store';
 import { DestroyService } from '../../core/services/destroy.service';
-type AuthVm = {
-  isLoading: Observable<boolean>;
-};
+import { Observable, map, of, takeUntil } from 'rxjs';
+import { registerStatusSelector } from '../../core/store/auth/auth.selector';
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
+import { ModalLoginComponent } from '../modal-login/modal-login.component';
+
 @Component({
-  selector: 'register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'modal-register',
+  templateUrl: './modal-register.component.html',
+  styleUrls: ['./modal-register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class ModalRegisterComponent implements OnInit {
   readonly taiKhoan = 'taiKhoan';
   readonly matKhau = 'matKhau';
   readonly email = 'email';
   readonly soDt = 'soDt';
   readonly hoTen = 'hoTen';
-  vm$!: Observable<AuthVm>;
+  loading$: Observable<boolean> = of(false);
+
   ngOnInit(): void {
-    this.vm$ = vmFromLatest<AuthVm>({
-      isLoading:
-        this.store.pipe(
-          select(registerStatusSelector),
-          map((status) => status === 'loading')
-        ) || of(false),
-    }).pipe(takeUntil(this.destroy$));
+    this.loading$ = this.store.pipe(
+      select(registerStatusSelector),
+      map((status) => {
+        return status === 'loading' ? true : false;
+      }),
+      takeUntil(this.destroy$)
+    );
   }
   registerForm: FormGroup = this.formBuilder.group({
     [this.taiKhoan]: [
@@ -83,10 +83,15 @@ export class RegisterComponent implements OnInit {
 
     registerForm.reset();
   }
-
+  openModalLogin(): void {
+    this.dialog.open<string>(ModalLoginComponent);
+    this.dialogRef.close();
+  }
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<AppState>,
-    private destroy$: DestroyService
+    private destroy$: DestroyService,
+    public dialogRef: DialogRef,
+    public dialog: Dialog
   ) {}
 }

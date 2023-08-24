@@ -1,0 +1,394 @@
+@import "../../../assets/scss//helpers/variables";
+@import "../../../assets/scss//helpers/mixins";
+.header.active {
+  backdrop-filter: blur(20px);
+  padding-block: 8px;
+}
+.header.menu {
+  backdrop-filter: blur(20px);
+}
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  background-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.7) 10%,
+    transparent
+  );
+  padding-block: 10px;
+  transition: backdrop-filter 0.4s;
+  transition: padding-block 0.4s;
+  .content {
+    @include flexBox(center, $wrap: wrap);
+  }
+  &-left {
+    @include flexBox(center);
+    gap: 10px;
+  }
+  &-right {
+    @include flexBox(center);
+    margin-left: auto;
+    gap: 10px;
+  }
+  .search.active {
+    padding-left: 2em;
+    button {
+      margin-left: 0.8em;
+    }
+    input {
+      width: auto;
+    }
+  }
+  .search {
+    z-index: 10;
+    font-size: 1.2rem;
+    display: none;
+    padding: 0.6em 0.8em;
+    background: $darkSecondary;
+    border-radius: 2.5em;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    button {
+      @include flexBox(center, center);
+      padding: 0.6em 1.3em;
+      background: $primaryColor20;
+      color: $pureWhite;
+      border-radius: 2em;
+    }
+    input {
+      color: $text3;
+      border: none;
+      outline: none;
+      font-size: 1.2em;
+      width: 0;
+      transition: all 0.3s ease;
+    }
+  }
+  .login {
+    color: $pureWhite;
+    padding: 8px 16px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    background: linear-gradient(
+      to right,
+      $primaryColor 0%,
+      #a4d96c 60%,
+      $primaryColor 100%
+    );
+    background-size: 200%;
+    transition: all 0.3s ease;
+    &:hover {
+      background-position: right center;
+    }
+  }
+  .user {
+    position: relative;
+    @include flexBox(center, center);
+    gap: 5px;
+    font-size: 1rem;
+    .avatar {
+      @include size(3.5em);
+      border-radius: 0.5em;
+      cursor: pointer;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .icon {
+      font-size: 2em;
+    }
+    .setting.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .setting {
+      font-size: 1rem;
+      @include size(19em, auto);
+      position: absolute;
+      top: 40px;
+      right: 20px;
+      padding-block: 10px;
+      border-radius: 16px;
+      background: $darkSecondary;
+      box-shadow: 0px 14px 64px 0px rgba(0, 0, 0, 0.1);
+      border: 1px solid #353945;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      &-menu {
+        padding: 0;
+        margin: 0;
+      }
+      &-item:not(:first-child) {
+        position: relative;
+        padding: 10px 20px;
+        @include flexBox(center);
+        gap: 10px;
+        a {
+          &:hover {
+            color: $primaryColor20;
+          }
+        }
+      }
+      &-item:nth-child(2)::before {
+        content: "";
+        display: inline-block;
+        @include absoluteCenter("left");
+        bottom: 0;
+        width: 80%;
+        height: 1px;
+        background: #353945;
+      }
+
+      &-item:last-child {
+        padding-top: 20px;
+        a {
+          &:hover {
+            color: $errorColor;
+          }
+        }
+      }
+      &-icon {
+        color: $iconColor;
+        text-align: center;
+      }
+      &-text a {
+        color: $text3;
+        font-size: 1.4em;
+        transition: color 0.3s;
+      }
+      .name {
+        margin-bottom: 0;
+        padding-inline: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+        font-size: 1.2em;
+        color: $text4;
+        span {
+          color: $secondaryColor20;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .navbar-toggleer-icon {
+    position: relative;
+    @include size(30px);
+    cursor: pointer;
+    overflow: hidden;
+    .navbar-menu-icon {
+      @include absoluteCenter("top");
+      @include size(30px, 2px);
+      border-radius: 2px;
+      background: $pureWhite;
+      transition: transform 0.3s;
+
+      &--top {
+        width: 20px;
+        top: 3px;
+      }
+      &--mid {
+        width: 30px;
+        top: 13px;
+        transform: rotate(0) translateY(-50%);
+      }
+      &--bot {
+        width: 15px;
+        top: 24px;
+      }
+    }
+  }
+  .navbar-toggleer-icon.active {
+    .navbar-menu-icon {
+      top: 50%;
+      left: 50%;
+      &--top {
+        width: 30px;
+        transform-origin: 0 center;
+        transform: rotate(45deg) translate(-50%, -50%);
+      }
+      &--mid {
+        width: 30px;
+        transform-origin: 0 center;
+        transform: rotate(315deg) translate(-50%, -50%);
+      }
+      &--bot {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-200%);
+      }
+    }
+  }
+
+  .logo {
+    &--destop {
+      display: none;
+    }
+    @include flexBox(center);
+    gap: 5px;
+    font-size: 1rem;
+    &-icon {
+      display: block;
+      @include size(4em);
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &-brand {
+      span:first-child {
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(
+          90deg,
+          $primaryColor 0%,
+          #a4d96c 100%
+        );
+        font-size: 1.6em;
+        font-weight: 500;
+      }
+      span {
+        display: block;
+        line-height: 1;
+        color: $secondaryColor40;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+      }
+      margin-bottom: 0;
+      color: $primaryColor20;
+      font-size: 1.4em;
+    }
+  }
+  .navbar {
+    width: 100%;
+    @include flexBox(center, center);
+    background: $darkSecondary;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 0;
+    margin: 0;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar.active {
+    margin-top: 10px;
+    height: 260px;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-menu {
+    padding: 0;
+    margin: 0;
+    &-item {
+      padding: 15px;
+      text-align: center;
+      &:hover a,
+      &.active a {
+        color: $primaryColor;
+        font-weight: 400;
+      }
+      a::before {
+        content: attr(title);
+        display: block;
+        font-weight: 400;
+        text-align: center;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        opacity: 0;
+      }
+      a {
+        @include text(1.6rem, normal, $text4);
+        display: inline-block;
+        text-transform: uppercase;
+        user-select: none;
+        transition: color 0.3s;
+      }
+    }
+  }
+}
+
+@include minWidth(767.98px) {
+  .header {
+    padding-block: 15px;
+    .content {
+      flex-wrap: nowrap;
+      gap: 10px;
+      flex-direction: row-reverse;
+    }
+
+    .logo {
+      &--mobile {
+        display: none;
+      }
+      &--destop {
+        display: block;
+        display: flex;
+      }
+    }
+    .navbar-dots-icon {
+      display: none;
+    }
+
+    .navbar-toggleer-icon {
+      display: none;
+    }
+    .navbar {
+      @include flexBox(center);
+      width: fit-content;
+      background: transparent;
+      visibility: visible;
+      opacity: 1;
+      height: auto;
+    }
+    .navbar-menu {
+      @include flexBox(center, center);
+      gap: 10px;
+      &-item {
+        padding: 5px;
+        a {
+          text-transform: capitalize;
+          font-size: 1.6;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}
+
+@include minWidth(991.98px) {
+  .header {
+  }
+}
+@include minWidth(1199.98px) {
+  .header {
+    .content {
+      gap: 40px;
+    }
+    .search {
+      display: block;
+      @include flexBox(center, center);
+    }
+    padding-block: 20px;
+    .navbar-menu {
+      &-item {
+        a {
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+}

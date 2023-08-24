@@ -1,51 +1,41 @@
 @import "../../../assets/scss/helpers/variables";
 @import "../../../assets/scss/helpers/mixins";
-.bg-form {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: url("../../../assets/images/bg.jpg") no-repeat center / cover;
-  background-attachment: fixed;
-  z-index: -1;
-}
+
 .form-template {
+  position: relative;
   font-family: $third-font;
   padding-block: 30px;
   @include flexBox(center, center);
+  .close {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    z-index: 20;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: #eb5757;
+    background: #422c32;
+  }
   .form-container {
-    @include size(327px, auto);
-    padding: 50px;
-    background: $bg-form;
+    @include size(330px, auto);
+    padding: 25px 50px;
+    background: $darkSecondary;
     border-radius: 15px;
     box-shadow: 0px 20px 60px -6px rgba(255, 255, 255, 0.3);
   }
   .form-heading {
-    @include text(2rem, 600, $white-color, center);
+    @include text(2rem, 500, $pureWhite, center);
     text-transform: capitalize;
     line-height: 28px; /* 150% */
   }
-  .form-title {
-    @include text(1.2rem, 500, $title-color, center);
-    line-height: 28px; /* 150% */
-    text-align: center;
-
-    a {
-      @include text(1.2rem, 600, $third-color, center);
-      margin-left: 5px;
-    }
-  }
 }
 @include minWidth(991.98px) {
-  .form-template.grid {
-    .form-container {
-      @include size(660px, auto);
-    }
-  }
   .form-template {
+    .close {
+      padding: 13px 24px;
+    }
     .form-container {
-      @include size(456px, auto);
+      @include size(460px, auto);
     }
     .form-heading {
       font-size: 3rem;

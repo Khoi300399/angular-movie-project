@@ -7,7 +7,7 @@
     @include flexBox(center, center);
     padding: 6.596px 19.787px;
     border-radius: 10px;
-    border: 1px solid $border-color;
+    border: 1px solid $darkStroke;
 
     transition: all 0.3s ease;
     &:hover {
@@ -18,20 +18,20 @@
 .sub-title {
   position: relative;
   margin-block: 20px;
-  @include text(1.2rem, 600, $title-color, center);
+  @include text(1.2rem, 600, $text3, center);
   &:before,
   &:after {
     content: "";
     display: inline-block;
-    @include size(69px, 1px);
+    @include size(40px, 1px);
     @include absoluteCenter("top");
-    background: $border-color;
+    background: $darkStroke;
   }
   &:before {
-    left: -25px;
+    left: -10px;
   }
   &:after {
-    right: -25px;
+    right: -10px;
   }
 }
 @include minWidth(991.98px) {
@@ -46,13 +46,13 @@
     font-size: 1.4rem;
     &:before,
     &:after {
-      width: 105px;
+      width: 100px;
     }
     &:before {
-      left: -10px;
+      left: -20px;
     }
     &:after {
-      right: -10px;
+      right: -20px;
     }
   }
 }

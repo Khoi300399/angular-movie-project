@@ -7,23 +7,8 @@ import { Observable } from 'rxjs';
   templateUrl: './button-submit.component.html',
   styleUrls: ['./button-submit.component.scss'],
 })
-export class ButtonSubmitComponent implements OnChanges {
-  @Input() loading?: Observable<boolean>;
+export class ButtonSubmitComponent {
+  @Input() loading: boolean = false;
   @Input() formGroup!: FormGroup;
   @Input() ngClass!: string;
-  isLoading: boolean = false;
-
-  ngOnChanges(changes: SimpleChanges) {
-    if ('loading' in changes) {
-      const newLoading = changes['loading'].currentValue;
-
-      if (newLoading instanceof Observable) {
-        newLoading.subscribe((loading) => {
-          this.isLoading = loading;
-        });
-      } else {
-        this.isLoading = !!newLoading;
-      }
-    }
-  }
 }

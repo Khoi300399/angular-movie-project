@@ -1,0 +1,59 @@
+<section class="register">
+  <form-template heading="Đăng ký">
+    <div class="form-title">
+      Quý khách đã có tài khoản?
+      <button class="btn-modal" (click)="openModalLogin()">Đăng nhập</button>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm)">
+      <div class="row">
+        <input-form
+          [name]="taiKhoan"
+          placeholder="Nhập tài khoản..."
+          label="Tài khoản"
+          [control]="$any(registerForm.get(taiKhoan))"
+          [required]="true"
+        ></input-form>
+        <input-form
+          [name]="matKhau"
+          placeholder="Nhập mật khẩu..."
+          label="Mật khẩu"
+          [control]="$any(registerForm.get(matKhau))"
+          [password]="true"
+          [required]="true"
+        ></input-form>
+        <input-form
+          [name]="email"
+          placeholder="Enter your email..."
+          label="Email"
+          [control]="$any(registerForm.get(email))"
+          [required]="true"
+        ></input-form>
+        <input-form
+          [name]="hoTen"
+          placeholder="Nhập họ và tên..."
+          label="Họ và tên"
+          [control]="$any(registerForm.get(hoTen))"
+          [required]="true"
+        ></input-form>
+        <input-form
+          [name]="soDt"
+          placeholder="Nhập số diện thoại..."
+          label="Số điện thoại"
+          [control]="$any(registerForm.get(soDt))"
+          [required]="true"
+        ></input-form>
+      </div>
+      <div class="wrapper-btn">
+        <button
+          type="submit"
+          class="submit"
+          [disabled]="(loading$ | async) || registerForm.invalid"
+        >
+          <div class="loading" *ngIf="loading$ | async"></div>
+          <span *ngIf="!(loading$ | async)">Tạo tài khoản</span>
+        </button>
+      </div>
+    </form>
+  </form-template>
+</section>

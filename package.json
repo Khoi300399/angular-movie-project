@@ -24,6 +24,7 @@
     "@ngrx/store": "^16.1.0",
     "@ngrx/store-devtools": "^16.1.0",
     "bootstrap": "^5.3.1",
+    "boxicons": "^2.1.4",
     "jquery": "^3.7.0",
     "ngx-owl-carousel-o": "^16.0.0",
     "ngx-slick-carousel": "^15.0.0",

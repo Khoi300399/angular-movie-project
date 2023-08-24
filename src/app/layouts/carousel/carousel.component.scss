@@ -1,0 +1,126 @@
+@import "../../../assets/scss//helpers/variables";
+@import "../../../assets/scss//helpers/mixins";
+.carousel {
+  overflow: hidden;
+  .slider {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: no-repeat center center / cover;
+    &:hover .content,
+    &:hover .play-icon {
+      visibility: visible;
+      opacity: 1;
+    }
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #181818, transparent 50%);
+    }
+  }
+  .play-icon {
+    @include absoluteCenter("both");
+    cursor: pointer;
+    z-index: 10;
+    color: $secondaryColor;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+    svg {
+      @include size(50px);
+    }
+    .triangle,
+    .circle {
+      stroke: $pureWhite;
+    }
+    .triangle {
+      transition: all 0.7s ease-in-out;
+      stroke-dasharray: 240;
+      stroke-dashoffset: 480;
+      transform: translateY(0);
+    }
+    .circle {
+      stroke-dasharray: 650;
+      stroke-dashoffset: 1300;
+      transition: all 0.5s ease-in-out;
+    }
+
+    &:hover .triangle {
+      stroke-dashoffset: 0;
+      opacity: 1;
+      stroke: $secondaryColor;
+      animation: trailorPlay 0.7s ease-in-out;
+    }
+    &:hover .circle {
+      stroke-dashoffset: 0;
+      stroke: $secondaryColor;
+    }
+  }
+  .content {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+    .btn-play,
+    .btn-detail {
+      color: $text3;
+      @include flexBox(center, space-between);
+      padding: 6px 15px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    .btn-play {
+      color: #000;
+      background-color: $pureWhite;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.75);
+      }
+    }
+    .btn-detail {
+      background-color: rgba(109, 109, 110, 0.7);
+      color: $pureWhite;
+      &:hover {
+        background-color: rgba(109, 109, 110, 0.4);
+      }
+    }
+  }
+  &-left {
+    height: 100%;
+    @include flexBox(flex-end, center);
+
+    .wrapper-btn {
+      height: 50%;
+      @include flexBox(center, center);
+      gap: 10px;
+    }
+  }
+}
+
+@include minWidth(767.98px) {
+  .carousel {
+    .content {
+      .btn-play,
+      .btn-detail {
+        font-size: 2rem;
+      }
+    }
+    .play-icon {
+      svg {
+        @include size(80px);
+      }
+    }
+  }
+}
+@include minWidth(991.98px) {
+  .carousel {
+    .content {
+      .btn-play,
+      .btn-detail {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}

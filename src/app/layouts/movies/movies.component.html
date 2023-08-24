@@ -1,0 +1,88 @@
+<section class="movies">
+  <div class="container">
+    <tab-group [(activeIndex)]="currentIndex">
+      <tab-panel title="Tất cả" iconClass="fa-solid fa-film">
+        <ng-template tabPanelContent>
+          <div class="row">
+            <ng-container *ngIf="itemsOnCurrentPage | async as movies">
+              <div
+                *ngFor="let movie of movies"
+                class="px-5 px-sm-4 mb-5 col-12 col-md-4 col-xl-3 col-xxl-2"
+              >
+                <movie-card [movie]="movie"></movie-card>
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+      </tab-panel>
+      <tab-panel title="Đang chiếu" iconClass="fa-solid fa-video">
+        <ng-template tabPanelContent>
+          <div class="slider">
+            <owl-carousel-o [options]="owlMovies">
+              <ng-template
+                carouselSlide
+                *ngFor="let movie of dangChieuTab | async"
+              >
+                <div class="slider">
+                  <movie-card [movie]="movie"></movie-card>
+                </div>
+              </ng-template>
+            </owl-carousel-o>
+          </div>
+        </ng-template>
+      </tab-panel>
+      <tab-panel title="Sắp chiếu" iconClass="fa-solid fa-video-slash">
+        <ng-template tabPanelContent>
+          <div class="slider">
+            <owl-carousel-o [options]="owlMovies">
+              <ng-template
+                carouselSlide
+                *ngFor="let movie of sapChieuTab | async"
+              >
+                <div class="slider">
+                  <movie-card [movie]="movie"></movie-card>
+                </div>
+              </ng-template>
+            </owl-carousel-o>
+          </div>
+        </ng-template>
+      </tab-panel>
+    </tab-group>
+    <ul class="pagination" *ngIf="totalPages >= 1 && currentIndex === 0">
+      <li class="pagination-item">
+        <button
+          class="pagination-prev"
+          type="button"
+          [disabled]="currentPage === 1"
+          (click)="prevPage()"
+        >
+          <i class="bx bx-chevron-left"></i>
+        </button>
+      </li>
+      <li
+        class="pagination-item"
+        *ngFor="let page of getPageArray(totalPages)"
+        (click)="setPage(page)"
+      >
+        <button
+          class="pagination-number"
+          [class.active]="currentPage === page"
+          type="button"
+        >
+          {{ page }}
+        </button>
+      </li>
+
+      <li class="pagination-item">
+        <button
+          class="pagination-next"
+          type="button"
+          [disabled]="currentPage === totalPages"
+          (click)="nextPage()"
+        >
+          <i class="bx bx-chevron-right"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</section>

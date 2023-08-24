@@ -1,0 +1,38 @@
+@import "../../../assets/scss//helpers/variables";
+@import "../../../assets/scss//helpers/mixins";
+.movies {
+  margin-top: 20px;
+  .pagination {
+    padding: 0;
+    margin: 0;
+    @include flexBox(center, center);
+    gap: 15px;
+    &-item {
+      @include size(30px);
+    }
+    &-prev,
+    &-next,
+    &-number {
+      @include size(100%);
+      @include flexBox(center, center);
+      border-radius: 10px;
+      color: $text4;
+    }
+    &-prev,
+    &-next {
+      &:disabled {
+        opacity: 0.6;
+        cursor: unset;
+      }
+      background: $darkStroke;
+      font-size: 3.5rem;
+    }
+    &-number {
+      font-size: 2rem;
+      transition: background ease 0.3s;
+    }
+    &-number.active {
+      background: $primaryColor40;
+    }
+  }
+}

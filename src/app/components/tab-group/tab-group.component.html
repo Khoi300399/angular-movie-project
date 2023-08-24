@@ -1,0 +1,22 @@
+<div class="tab-header">
+  <div
+    #tab
+    class="tab-item"
+    *ngFor="let tab of tabPanelList; index as inx"
+    [class.active]="inx === activeIndex"
+    (click)="selectItem(inx)"
+  >
+    <span class="tab-icon"> <i [ngClass]="tab.iconClass"></i></span>
+    <span class="tab-text">{{ tab.title }}</span>
+  </div>
+
+  <div #line class="line"></div>
+</div>
+<div class="tab-content" *ngIf="tabPanelList.length > 0; else noTab">
+  <ng-container *ngFor="let tab of tabPanelList; index as idx">
+    <ng-container *ngIf="idx === activeIndex">
+      <ng-container *ngTemplateOutlet="tab.panelBody"></ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+<ng-template #noTab> No more tab </ng-template>

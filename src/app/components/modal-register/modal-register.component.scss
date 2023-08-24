@@ -1,0 +1,71 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+
+.register {
+  animation: animateTranslateY 0.5s ease-in-out;
+  .form-title {
+    @include text(1.2rem, 500, $text3, center);
+    line-height: 28px; /* 150% */
+    text-align: center;
+    margin-bottom: 20px;
+    .btn-modal {
+      @include text(1.2rem, 600, $primaryColor, center);
+      margin-left: 5px;
+      text-decoration: underline;
+    }
+  }
+
+  .wrapper-btn {
+    @include flexBox(center, center);
+  }
+  .submit {
+    font-family: $secondary-font;
+    user-select: none;
+    margin-inline: auto;
+    width: max-content;
+    background: $primaryColor;
+    background-size: 200%;
+    border-radius: 10px;
+    padding: 15px 20px;
+    @include text(1.6rem, 600, $pureWhite, center);
+    transition: all 0.3s ease;
+    &:hover {
+      background-position: right center;
+    }
+  }
+
+  .submit:disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+  .loading {
+    @include size(30px);
+    margin-inline: auto;
+    border-radius: 50%;
+    border: 3px solid $pureWhite;
+    border-color: $pureWhite transparent $pureWhite transparent;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes animateTranslateY {
+    from {
+      transform: translateY(-100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+  @include minWidth(991.98px) {
+    .submit {
+      font-size: 2rem;
+    }
+  }
+}
