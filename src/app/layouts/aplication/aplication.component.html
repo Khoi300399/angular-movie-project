@@ -1,0 +1,36 @@
+<section class="application">
+  <div class="container">
+    <div>
+      <div class="row">
+        <div class="mb-5 col-12 col-lg-6">
+          <div class="application-top">
+            <h2 class="title">
+              Ứng dụng tiện lợi dành cho <br />người yêu điện ảnh
+            </h2>
+            <p class="decs">
+              Không chỉ đặt vé, bạn còn có thể bình luận phim, chấm điểm rạp và
+              đổi quà hấp dẫn.
+            </p>
+            <button type="button" class="download">
+              App miễn phí - Tải về ngay!
+            </button>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="application-bottom">
+            <div class="phone-img">
+              <img src="../../../assets/images/iphone.png" alt="phone" />
+              <owl-carousel-o [options]="owlApplication" class="slide">
+                <ng-template carouselSlide *ngFor="let slide of slides">
+                  <div class="slide-item">
+                    <img [src]="slide" alt="slide" />
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

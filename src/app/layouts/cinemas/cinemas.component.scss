@@ -2,6 +2,7 @@
 @import "../../../assets/scss//helpers/mixins";
 .cinemas {
   padding-top: 100px;
+  display: none;
 }
 .tabs {
   position: relative;
@@ -232,5 +233,11 @@
         }
       }
     }
+  }
+}
+
+@include minWidth(1200px) {
+  .cinemas {
+    display: block;
   }
 }

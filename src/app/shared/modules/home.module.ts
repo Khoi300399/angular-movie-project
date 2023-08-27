@@ -23,6 +23,8 @@ import { TabPanelComponent } from '../../components/tab-panel/tab-panel.componen
 import { TabPanelContentDirective } from '../../core/directives/tab-panel-content.directive';
 import { StringifyPipe } from '../../core/pipes/stringify.pipe';
 import { CinemasComponent } from '../../layouts/cinemas/cinemas.component';
+import { AplicationComponent } from '../../layouts/aplication/aplication.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 @NgModule({
   declarations: [
     HomeTemplateComponent,
@@ -42,6 +44,7 @@ import { CinemasComponent } from '../../layouts/cinemas/cinemas.component';
     TabGroupComponent,
     TabPanelComponent,
     CinemasComponent,
+    AplicationComponent,
     StringifyPipe,
   ],
   imports: [
@@ -53,6 +56,7 @@ import { CinemasComponent } from '../../layouts/cinemas/cinemas.component';
     CdkMenuItem,
     DialogModule,
     ReactiveFormsModule,
+    SlickCarouselModule,
   ],
 })
 export class HomeModule {}

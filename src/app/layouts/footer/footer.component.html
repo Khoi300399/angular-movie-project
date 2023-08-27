@@ -1,1 +1,85 @@
-<p>footer works!</p>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+        <div class="footer__box">
+          <h3 class="footer__title">Địa Chỉ</h3>
+          <ul class="footer__list">
+            <li class="footer__item">
+              <i class="icon fas fa-map-marker-alt"></i
+              ><span class="text">Quận 9, Thành Phố Hồ Chí Minh, Việt Nam</span>
+            </li>
+            <li class="footer__item">
+              <i class="icon fas fa-phone-alt"></i
+              ><span class="text">+84 0369446811</span>
+            </li>
+            <li class="footer__item">
+              <i class="icon far fa-envelope"></i
+              ><span class="text">khoimtk321@gmail.com</span>
+            </li>
+          </ul>
+          <ul class="footer__contact">
+            <li class="contact-item fb"><i class="fab fa-facebook-f"> </i></li>
+            <li class="contact-item twitter">
+              <i class="fab fa-twitter"> </i>
+            </li>
+            <li class="contact-item ins"><i class="fab fa-instagram"> </i></li>
+            <li class="contact-item linkin">
+              <i class="fab fa-linkedin"> </i>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2">
+        <div class="footer__box">
+          <h3 class="footer__title">Information</h3>
+          <ul class="footer__list">
+            <li class="footer__item"><span class="text">About Us</span></li>
+            <li class="footer__item"><span class="text">Contact Us</span></li>
+            <li class="footer__item">
+              <span class="text">Privacy Policy</span>
+            </li>
+            <li class="footer__item">
+              <span class="text">Frequently Questions</span>
+            </li>
+            <li class="footer__item">
+              <span class="text">Customer Service</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2">
+        <div class="footer__box">
+          <h3 class="footer__title">My Account</h3>
+          <ul class="footer__list">
+            <li class="footer__item"><span class="text">My Account</span></li>
+            <li class="footer__item"><span class="text">Login Page</span></li>
+            <li class="footer__item">
+              <span class="text">Shopping cart</span>
+            </li>
+            <li class="footer__item">
+              <span class="text">Register Account</span>
+            </li>
+            <li class="footer__item"><span class="text">Logut</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="footer__box">
+          <h3 class="footer__title">Đối tác</h3>
+          <div class="footer__logo">
+            <div class="row">
+              <div class="col-3 mb-5" *ngFor="let logo of logoList">
+                <div class="logo__item">
+                  <a [href]="logo.link" target="_blank">
+                    <img [src]="logo.image" alt="logo" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

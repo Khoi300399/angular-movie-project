@@ -12,10 +12,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Interceptor } from './core/utils/interceptor.util';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeModule } from './shared/modules/home.module';
-import { TabPanelLogoComponent } from './components/tab-panel-logo/tab-panel-logo.component';
 
 @NgModule({
-  declarations: [AppComponent, TabPanelLogoComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

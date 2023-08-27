@@ -7,7 +7,7 @@
             <ng-container *ngIf="itemsOnCurrentPage | async as movies">
               <div
                 *ngFor="let movie of movies"
-                class="px-5 px-sm-4 mb-5 col-12 col-md-4 col-xl-3 col-xxl-2"
+                class="px-3 px-lg-5 px-sm-4 mb-5 col-6 col-md-4 col-xl-3 col-xxl-2"
               >
                 <movie-card [movie]="movie"></movie-card>
               </div>
