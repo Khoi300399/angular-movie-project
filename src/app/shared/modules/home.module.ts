@@ -22,6 +22,7 @@ import { TabGroupComponent } from '../../components/tab-group/tab-group.componen
 import { TabPanelComponent } from '../../components/tab-panel/tab-panel.component';
 import { TabPanelContentDirective } from '../../core/directives/tab-panel-content.directive';
 import { StringifyPipe } from '../../core/pipes/stringify.pipe';
+import { CinemasComponent } from '../../layouts/cinemas/cinemas.component';
 @NgModule({
   declarations: [
     HomeTemplateComponent,
@@ -40,6 +41,7 @@ import { StringifyPipe } from '../../core/pipes/stringify.pipe';
     MovieCardComponent,
     TabGroupComponent,
     TabPanelComponent,
+    CinemasComponent,
     StringifyPipe,
   ],
   imports: [

@@ -1,0 +1,236 @@
+@import "../../../assets/scss//helpers/variables";
+@import "../../../assets/scss//helpers/mixins";
+.cinemas {
+  padding-top: 100px;
+}
+.tabs {
+  position: relative;
+  height: 600px;
+  border: 1px solid $borderColor;
+  background: url("../../../assets/images/bg.jpg") no-repeat center center /
+    cover;
+  background-attachment: fixed;
+  @include flexBox(flex-start);
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 1, 1, 0.6);
+  }
+  .wrapper-tab {
+    position: relative;
+    height: 100%;
+    .line {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 0;
+      width: 1px;
+      background-color: $secondaryColor;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+  .tab {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    border-right: 1px solid $borderColor;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background-color: $darkSecondary;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background-color: $secondaryColor;
+      border-radius: 10px;
+      border: 2px solid $secondaryColor;
+    }
+  }
+  .tab-btn.active {
+    opacity: 1;
+  }
+  .tab-btn {
+    position: relative;
+    height: 90px;
+    opacity: 0.6;
+  }
+
+  //   TAB LOGO
+  .tab-logo {
+    z-index: 10;
+    &-item {
+      @include size(90px);
+    }
+    &-btn::after {
+      content: "";
+      display: inline-block;
+      @include absoluteCenter("left");
+      bottom: -0.5px;
+      @include size(80%, 1px);
+      background: $borderColor;
+    }
+    &-btn {
+      width: 90px;
+      padding: 20px;
+      img {
+        @include size(50px);
+        object-fit: cover;
+      }
+    }
+  }
+
+  //   TAB META
+  .tab-meta {
+    z-index: 10;
+    min-width: 400px;
+    width: 400px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    &-item {
+      width: 100%;
+      .tab-meta-btn::after {
+        content: "";
+        display: inline-block;
+        @include absoluteCenter("left");
+        bottom: -0.5px;
+        @include size(80%, 1px);
+        background: $borderColor;
+      }
+    }
+    &-btn {
+      width: 100%;
+      padding-inline: 20px;
+      .cinema,
+      .address {
+        margin-bottom: 0;
+        text-align: left;
+      }
+      .cinema {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: $primaryColor;
+        font-weight: 400;
+      }
+      .address {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 1.2rem;
+        color: $text4;
+      }
+    }
+  }
+
+  //   TAB INFO
+  .tab-info {
+    padding: 0;
+    margin: 0;
+    z-index: 10;
+    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    &-item {
+      position: relative;
+      padding: 20px;
+      min-width: 100%;
+    }
+    &-item:not(:last-child) {
+      &::after {
+        content: "";
+        display: inline-block;
+        @include absoluteCenter("left");
+        bottom: 0;
+        @include size(80%, 1px);
+        background: $borderColor;
+      }
+    }
+    .thumb {
+      position: relative;
+      width: 100%;
+      padding-top: calc(100% * 4 / 3);
+      border-radius: 8px;
+      overflow: hidden;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        object-fit: cover;
+      }
+    }
+
+    .name {
+      font-size: 1.8rem;
+      color: $graySoft;
+      span {
+        font-size: 1.4rem;
+        color: $pureWhite;
+        text-transform: uppercase;
+        background: $secondaryColor20;
+        padding: 4px;
+        border-radius: 5px;
+      }
+    }
+    .showtimes {
+      @include flexBox(center, $wrap: wrap);
+      height: 100px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      gap: 10px;
+
+      /* width */
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background-color: $darkSecondary;
+        border-radius: 10px;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background-color: $primaryColor;
+        border-radius: 10px;
+        border: 1px solid $primaryColor;
+      }
+      button[type="button"] {
+        background: $darkStroke;
+        padding: 10px 5px;
+        border-radius: 5px;
+        font-weight: 500;
+        &:hover {
+          .date {
+            color: $primaryColor;
+          }
+          .time {
+            color: $errorColor;
+          }
+        }
+        .date,
+        .time {
+          color: $text4;
+          transition: color 0.3s;
+        }
+      }
+    }
+  }
+}

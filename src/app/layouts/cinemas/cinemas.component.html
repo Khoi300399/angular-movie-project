@@ -1,0 +1,87 @@
+<section class="cinemas">
+  <div class="container">
+    <ng-container *ngIf="thongTinLichChieu$ | async as thongTinLichChieuList">
+      <div class="tabs">
+        <div class="wrapper-tab">
+          <ul class="tab tab-logo">
+            <ng-container
+              *ngFor="
+                let thongTinLichChieu of thongTinLichChieuList;
+                index as idx
+              "
+            >
+              <li #itemLogo class="tab-logo-item">
+                <button
+                  type="button"
+                  class="tab-btn tab-logo-btn"
+                  [class.active]="idx === thongTinLichChieuActiveIndex"
+                  (click)="onClickLogo(idx)"
+                >
+                  <img [src]="thongTinLichChieu.logo" alt="logo" />
+                </button>
+              </li>
+            </ng-container>
+          </ul>
+          <div #lineLogo class="line"></div>
+        </div>
+        <ng-container
+          *ngIf="thongTinLichChieuList[thongTinLichChieuActiveIndex]?.['lstCumRap'] as thongTinCumRapList"
+        >
+          <div class="wrapper-tab">
+            <ul class="tab tab-meta">
+              <ng-container
+                *ngFor="let thongTinCumRap of thongTinCumRapList; index as idx"
+              >
+                <li #itemMeta class="tab-meta-item">
+                  <button
+                    type="button"
+                    class="tab-btn tab-meta-btn"
+                    [class.active]="idx === thongTinCumRapActiveIndex"
+                    (click)="onClickMeta(idx)"
+                  >
+                    <h4 class="cinema">{{ thongTinCumRap.tenCumRap }}</h4>
+                    <p class="address">{{ thongTinCumRap.diaChi }}</p>
+                  </button>
+                </li>
+              </ng-container>
+            </ul>
+            <div #lineMeta class="line"></div>
+          </div>
+          <ul class="tab tab-info">
+            <ng-container
+              *ngFor="let phim of thongTinCumRapList[thongTinCumRapActiveIndex]?.['danhSachPhim']"
+            >
+              <li class="tab-info-item">
+                <div class="row">
+                  <div class="col-2">
+                    <div class="thumb">
+                      <img [src]="phim.hinhAnh" alt="movie" />
+                    </div>
+                  </div>
+                  <div class="col-10">
+                    <h4 class="name"><span>2D</span> {{ phim.tenPhim }}</h4>
+                    <div class="showtimes">
+                      <ng-container
+                        *ngFor="let lichChieuPhim of phim.lstLichChieuTheoPhim"
+                      >
+                        <button type="button">
+                          <span class="date">{{
+                            lichChieuPhim.ngayChieuGioChieu
+                              | date : "dd/MM/yyyy"
+                          }}</span>
+                          <span class="time">{{
+                            lichChieuPhim.ngayChieuGioChieu | date : " ~ hh:mm"
+                          }}</span>
+                        </button>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</section>

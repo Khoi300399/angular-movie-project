@@ -1,5 +1,9 @@
 import { AuthState } from './auth/auth.state';
-import { ShowtimesByMovieIdState } from './cinema/cinema.state';
+import {
+  ThongTinLichChieuPhimState,
+  ThongTinLichChieuHeThongRapState,
+  ThongTinCumRapTheoHeThongState,
+} from './cinema/cinema.state';
 import {
   BannerState,
   MoviesPaginationState,
@@ -11,5 +15,7 @@ export interface AppState {
   feature_banner: BannerState;
   feature_movies: MoviesState;
   feature_moviesPagination: MoviesPaginationState;
-  feature_showtimesByMovieId: ShowtimesByMovieIdState;
+  feature_thongTinLichChieuPhim: ThongTinLichChieuPhimState;
+  feature_thongTinLichChieuHeThongRap: ThongTinLichChieuHeThongRapState;
+  feature_thongTinCumRapTheoHeThong: ThongTinCumRapTheoHeThongState;
 }

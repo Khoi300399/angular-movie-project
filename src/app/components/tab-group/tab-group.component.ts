@@ -63,5 +63,5 @@ export class TabGroupComponent implements AfterViewInit {
       };
     });
   }
-  constructor(private cdRef: ChangeDetectorRef, private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) {}
 }

@@ -12,7 +12,11 @@ import {
 import { AuthEffects } from './store/auth/auth.effects';
 import { MoviesEffects } from './store/movie/movie.effects';
 import { CinemaEffects } from './store/cinema/cinema.effects';
-import { showtimesByMovieIdReducer } from './store/cinema/cinema.reducer';
+import {
+  thongTinCumRapReducer,
+  thongTinLichChieuPhimReducer,
+  thongTinLichChieuHeThongRapReducer,
+} from './store/cinema/cinema.reducer';
 import { ticketByShowtimesIdReducer } from './store/ticket/ticket.reducer';
 import { TicketEffects } from './store/ticket/ticket.effects';
 
@@ -30,9 +34,14 @@ import { TicketEffects } from './store/ticket/ticket.effects';
       ticketByShowtimesIdReducer
     ),
     StoreModule.forFeature(
-      'feature_showtimesByMovieId',
-      showtimesByMovieIdReducer
+      'feature_thongTinLichChieuPhim',
+      thongTinLichChieuPhimReducer
     ),
+    StoreModule.forFeature(
+      'feature_thongTinLichChieuHeThongRap',
+      thongTinLichChieuHeThongRapReducer
+    ),
+    StoreModule.forFeature('feature_thongTinCumRap', thongTinCumRapReducer),
     EffectsModule.forFeature([AuthEffects]),
     EffectsModule.forFeature([MoviesEffects]),
     EffectsModule.forFeature([CinemaEffects]),

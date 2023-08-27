@@ -1,33 +1,101 @@
 import { createReducer, on } from '@ngrx/store';
-import { ShowtimesByMovieIdState } from './cinema.state';
+import {
+  ThongTinLichChieuPhimState,
+  ThongTinCumRapTheoHeThongState,
+  ThongTinLichChieuHeThongRapState,
+} from './cinema.state';
 import * as CinemaActions from './cinema.actions';
 
-const initialShowtimesByMovieId: ShowtimesByMovieIdState = {
-  showtimes: null,
+const initialShowtimesByMovieId: ThongTinLichChieuPhimState = {
+  lichChieuPhim: null,
+  status: 'idle',
+  error: null,
+};
+const initialThongTinLichChieu: ThongTinLichChieuHeThongRapState = {
+  thongTinLichChieu: [],
+  status: 'idle',
+  error: null,
+};
+const initialThongTinCumRap: ThongTinCumRapTheoHeThongState = {
+  thongTinCumRap: [],
   status: 'idle',
   error: null,
 };
 
-export const showtimesByMovieIdReducer = createReducer(
+export const thongTinLichChieuPhimReducer = createReducer(
   initialShowtimesByMovieId,
   on(
-    CinemaActions.getShowtimesByMoieId,
-    (state): ShowtimesByMovieIdState => ({
+    CinemaActions.layThongTinLichChieuPhim,
+    (state): ThongTinLichChieuPhimState => ({
       ...state,
       status: 'loading',
     })
   ),
   on(
-    CinemaActions.getShowtimesByMoieIdSuccess,
-    (state, { showtimes }): ShowtimesByMovieIdState => ({
+    CinemaActions.layThongTinLichChieuPhimSuccess,
+    (state, { lichChieuPhim }): ThongTinLichChieuPhimState => ({
       ...state,
       status: 'loaded',
-      showtimes,
+      lichChieuPhim,
     })
   ),
   on(
-    CinemaActions.getShowtimesByMoieIdFailed,
-    (state, { error }): ShowtimesByMovieIdState => ({
+    CinemaActions.layThongTinLichChieuPhimFailed,
+    (state, { error }): ThongTinLichChieuPhimState => ({
+      ...state,
+      status: 'error',
+      error,
+    })
+  )
+);
+
+export const thongTinLichChieuHeThongRapReducer = createReducer(
+  initialThongTinLichChieu,
+  on(
+    CinemaActions.layThongTinLichChieuHeThongRap,
+    (state): ThongTinLichChieuHeThongRapState => ({
+      ...state,
+      status: 'loading',
+    })
+  ),
+  on(
+    CinemaActions.layThongTinLichChieuHeThongRapSuccess,
+    (state, { thongTinLichChieu }): ThongTinLichChieuHeThongRapState => ({
+      ...state,
+      status: 'loaded',
+      thongTinLichChieu,
+    })
+  ),
+  on(
+    CinemaActions.layThongTinLichChieuHeThongRapFailed,
+    (state, { error }): ThongTinLichChieuHeThongRapState => ({
+      ...state,
+      status: 'error',
+      error,
+    })
+  )
+);
+
+export const thongTinCumRapReducer = createReducer(
+  initialThongTinCumRap,
+  on(
+    CinemaActions.layThongTinCumRapTheoHeThong,
+    (state): ThongTinCumRapTheoHeThongState => ({
+      ...state,
+      status: 'loading',
+    })
+  ),
+  on(
+    CinemaActions.layThongTinCumRapTheoHeThongSuccess,
+    (state, { thongTinCumRap }): ThongTinCumRapTheoHeThongState => ({
+      ...state,
+      status: 'loaded',
+      thongTinCumRap,
+    })
+  ),
+  on(
+    CinemaActions.layThongTinCumRapTheoHeThongFailed,
+    (state, { error }): ThongTinCumRapTheoHeThongState => ({
       ...state,
       status: 'error',
       error,

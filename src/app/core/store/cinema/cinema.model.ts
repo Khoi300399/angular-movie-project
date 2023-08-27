@@ -1,12 +1,12 @@
-export interface ShowtimesByMovieIdRes {
+export interface Response<T> {
   statusCode: number;
   message: string;
-  content: ShowtimesByMovieIdModel;
+  content: T;
   dateTime: Date;
   messageConstants: null;
 }
 
-export interface ShowtimesByMovieIdModel {
+export interface ThongTinLichChieuPhimModel {
   heThongRapChieu: HeThongRapChieu[];
   maPhim: number;
   tenPhim: string;
@@ -44,4 +44,50 @@ export interface LichChieuPhim {
   ngayChieuGioChieu: string;
   giaVe: number;
   thoiLuong: number;
+}
+
+export interface ThongTinLichChieuHeThongRapModel {
+  lstCumRap: LstCumRap[];
+  maHeThongRap: string;
+  tenHeThongRap: string;
+  logo: string;
+  mahom: string;
+}
+
+export interface LstCumRap {
+  danhSachPhim: DanhSachPhim[];
+  maCumRap: string;
+  tenCumRap: string;
+  hinhAnh: string;
+  diaChi: string;
+}
+
+export interface DanhSachPhim {
+  lstLichChieuTheoPhim: LstLichChieuTheoPhim[];
+  maPhim: number;
+  tenPhim: string;
+  hinhAnh: string;
+  hot: boolean | null;
+  dangChieu: boolean | null;
+  sapChieu: boolean | null;
+}
+
+export interface LstLichChieuTheoPhim {
+  maLichChieu: number;
+  maRap: string;
+  tenRap: string;
+  ngayChieuGioChieu: Date;
+  giaVe: number;
+}
+
+export interface ThongTinCumRapTheoHeThongModel {
+  maCumRap: string;
+  tenCumRap: string;
+  diaChi: string;
+  danhSachRap: DanhSachRap[];
+}
+
+export interface DanhSachRap {
+  maRap: number;
+  tenRap: string;
 }

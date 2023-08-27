@@ -4,15 +4,16 @@ import { AppState } from '../../core/store/app.state';
 import { getMoviesByName } from '../../core/store/movie/movie.action';
 import { MoviesModel } from '../../core/store/movie/movie.model';
 import { moviesSelector } from '../../core/store/movie/movie.selector';
-import { Observable, distinct, map, of, tap } from 'rxjs';
+import { Observable, distinct, map, of } from 'rxjs';
+
+import { layThongTinLichChieuPhim } from '../../core/store/cinema/cinema.actions';
+import { lichChieuPhimSelector } from '../../core/store/cinema/cinema.selector';
 import {
   CumRapChieu,
   HeThongRapChieu,
   LichChieuPhim,
-  ShowtimesByMovieIdModel,
+  ThongTinLichChieuPhimModel,
 } from '../../core/store/cinema/cinema.model';
-import { getShowtimesByMoieId } from '../../core/store/cinema/cinema.actions';
-import { showtimesSelector } from '../../core/store/cinema/cinema.selector';
 
 @Component({
   selector: 'booking',
@@ -26,7 +27,7 @@ export class BookingComponent implements OnInit {
   selectedTime: string = '';
   maLichChieu!: string;
   movies$!: Observable<MoviesModel[]>;
-  thongTinLichChieuPhim$!: Observable<ShowtimesByMovieIdModel | null>;
+  thongTinLichChieuPhim$!: Observable<ThongTinLichChieuPhimModel | null>;
   cumRapRender$: Observable<CumRapChieu[]> = of([]);
   lichChieuPhimData$: Observable<LichChieuPhim[]> = of([]);
   lichChieuSelected: LichChieuPhim[] = [];
@@ -36,10 +37,10 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(getMoviesByName({ tenPhim: '' }));
     this.movies$ = this.store.select(moviesSelector);
-    this.thongTinLichChieuPhim$ = this.store.select(showtimesSelector);
+    this.thongTinLichChieuPhim$ = this.store.select(lichChieuPhimSelector);
   }
   getCumRapRender(
-    showtimes$: Observable<ShowtimesByMovieIdModel | null>
+    showtimes$: Observable<ThongTinLichChieuPhimModel | null>
   ): Observable<CumRapChieu[]> {
     return showtimes$.pipe(
       map((data) => {
@@ -120,7 +121,7 @@ export class BookingComponent implements OnInit {
     this.maLichChieu = '';
     if (this.selectedMovie !== selectedValue) {
       this.selectedMovie = selectedValue;
-      this.store.dispatch(getShowtimesByMoieId({ movieId: data.maPhim }));
+      this.store.dispatch(layThongTinLichChieuPhim({ maPhim: data.maPhim }));
       this.cumRapRender$ = this.getCumRapRender(this.thongTinLichChieuPhim$);
     } else {
       this.selectedMovie = '';
