@@ -17,7 +17,7 @@ import {
   thongTinLichChieuPhimReducer,
   thongTinLichChieuHeThongRapReducer,
 } from './store/cinema/cinema.reducer';
-import { ticketByShowtimesIdReducer } from './store/ticket/ticket.reducer';
+import { danhSachPhongVeReducer } from './store/ticket/ticket.reducer';
 import { TicketEffects } from './store/ticket/ticket.effects';
 
 @NgModule({
@@ -29,10 +29,7 @@ import { TicketEffects } from './store/ticket/ticket.effects';
     StoreModule.forFeature('feature_moviesByName', moviesByNameReducer),
     StoreModule.forFeature('feature_movieById', movieByIdReducer),
     StoreModule.forFeature('feature_moviesPagination', moviePaginationReducer),
-    StoreModule.forFeature(
-      'feature_ticketByShowtimesId',
-      ticketByShowtimesIdReducer
-    ),
+    StoreModule.forFeature('feature_danhSachPhongVe', danhSachPhongVeReducer),
     StoreModule.forFeature(
       'feature_thongTinLichChieuPhim',
       thongTinLichChieuPhimReducer

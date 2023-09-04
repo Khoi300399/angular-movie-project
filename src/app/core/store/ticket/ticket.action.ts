@@ -1,21 +1,19 @@
 import { createAction, props } from '@ngrx/store';
-import { TicketByShowtimesIdModel } from './ticket.model';
+import { DanhSachPhongVeModel } from './ticket.model';
 
-const GET_TICKET_BY_SHOWTIMES_ID = '@Ticket/GetTicketByShowtimesId';
-const GET_TICKET_BY_SHOWTIMES_ID_SUCCESS =
-  '@Ticket/GetTicketByShowtimesIdSuccess';
-const GET_TICKET_BY_SHOWTIMES_ID_FAILED =
-  '@Ticket/GetTicketByShowtimesIdFailed';
+const LAY_DANHSACH_PHONGVE = '@Ticket/GetTicketByShowtimesId';
+const LAY_DANHSACH_PHONGVE_SUCCESS = '@Ticket/GetTicketByShowtimesIdSuccess';
+const LAY_DANHSACH_PHONGVE_FAILED = '@Ticket/GetTicketByShowtimesIdFailed';
 
-export const getTicketByShowtimesId = createAction(
-  GET_TICKET_BY_SHOWTIMES_ID,
-  props<{ showtimesId: number }>()
+export const layDanhSachPhongVe = createAction(
+  LAY_DANHSACH_PHONGVE,
+  props<{ maLichChieu: number }>()
 );
-export const getTicketByShowtimesIdSuccess = createAction(
-  GET_TICKET_BY_SHOWTIMES_ID_SUCCESS,
-  props<{ ticket: TicketByShowtimesIdModel }>()
+export const layDanhSachPhongVeSuccess = createAction(
+  LAY_DANHSACH_PHONGVE_SUCCESS,
+  props<{ danhSachPhongVe: DanhSachPhongVeModel }>()
 );
-export const getTicketByShowtimesIdFailed = createAction(
-  GET_TICKET_BY_SHOWTIMES_ID_FAILED,
+export const layDanhSachPhongVeFailed = createAction(
+  LAY_DANHSACH_PHONGVE_FAILED,
   props<{ error?: string }>()
 );

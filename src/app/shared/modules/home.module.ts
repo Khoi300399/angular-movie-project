@@ -1,16 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeTemplateComponent } from '../../templates/home-template/home-template.component';
 import { HomeComponent } from '../../pages/home/home.component';
-import { FooterComponent } from '../../layouts/footer/footer.component';
-import { HeaderComponent } from '../../layouts/header/header.component';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CdkMenuModule, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { CarouselComponent } from '../../layouts/carousel/carousel.component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ModalVideoComponent } from '../../components/modal-video/modal-video.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
 import { BookingComponent } from '../../components/booking/booking.component';
 import { DropdownComponent } from '../../components/dropdown/dropdown.component';
 import { ClickOutsideDirective } from '../../core/directives/click-outside.directive';
@@ -25,15 +19,13 @@ import { StringifyPipe } from '../../core/pipes/stringify.pipe';
 import { CinemasComponent } from '../../layouts/cinemas/cinemas.component';
 import { AplicationComponent } from '../../layouts/aplication/aplication.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { HomeTemplateModule } from './home-template.module';
+import { AppRoutingModule } from '../../app-routing.module';
 @NgModule({
   declarations: [
-    HomeTemplateComponent,
     HomeComponent,
-    HeaderComponent,
-    FooterComponent,
     CarouselComponent,
     ModalVideoComponent,
-    LoadingComponent,
     BookingComponent,
     DropdownComponent,
     OptionComponent,
@@ -50,13 +42,11 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
   imports: [
     CommonModule,
     CarouselModule,
-    OverlayModule,
-    CdkMenuModule,
-    CdkMenu,
-    CdkMenuItem,
     DialogModule,
     ReactiveFormsModule,
     SlickCarouselModule,
+    HomeTemplateModule,
+    AppRoutingModule,
   ],
 })
 export class HomeModule {}

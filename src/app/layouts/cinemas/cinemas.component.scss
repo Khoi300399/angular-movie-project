@@ -2,16 +2,10 @@
 @import "../../../assets/scss//helpers/mixins";
 .cinemas {
   padding-top: 100px;
-  display: none;
 }
 .tabs {
   position: relative;
-  height: 600px;
   border: 1px solid $borderColor;
-  background: url("../../../assets/images/bg.jpg") no-repeat center center /
-    cover;
-  background-attachment: fixed;
-  @include flexBox(flex-start);
   overflow: hidden;
   &::before {
     content: "";
@@ -26,6 +20,7 @@
     position: relative;
     height: 100%;
     .line {
+      display: none;
       position: absolute;
       left: 0;
       top: 0;
@@ -40,9 +35,11 @@
     padding: 0;
     height: 100%;
     border-right: 1px solid $borderColor;
+
     /* width */
     &::-webkit-scrollbar {
       width: 5px;
+      height: 4px;
     }
 
     /* Track */
@@ -70,6 +67,8 @@
   //   TAB LOGO
   .tab-logo {
     z-index: 10;
+    @include flexBox(center);
+    overflow-x: auto;
     &-item {
       @include size(90px);
     }
@@ -93,12 +92,13 @@
 
   //   TAB META
   .tab-meta {
+    @include flexBox(center);
     z-index: 10;
     min-width: 400px;
     width: 400px;
     width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     &-item {
       width: 100%;
       .tab-meta-btn::after {
@@ -145,6 +145,7 @@
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    height: 550px;
     &-item {
       position: relative;
       padding: 20px;
@@ -195,7 +196,6 @@
       overflow-x: hidden;
       overflow-y: auto;
       gap: 10px;
-
       /* width */
       &::-webkit-scrollbar {
         width: 5px;
@@ -213,11 +213,13 @@
         border-radius: 10px;
         border: 1px solid $primaryColor;
       }
-      button[type="button"] {
+      a {
+        user-select: none;
         background: $darkStroke;
         padding: 10px 5px;
         border-radius: 5px;
         font-weight: 500;
+        cursor: pointer;
         &:hover {
           .date {
             color: $primaryColor;
@@ -235,9 +237,20 @@
     }
   }
 }
-
-@include minWidth(1200px) {
-  .cinemas {
-    display: block;
+@include minWidth(992px) {
+  .tabs {
+    height: 600px;
+    @include flexBox(flex-start);
+    .tab-logo,
+    .tab-meta {
+      display: block;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .wrapper-tab {
+      .line {
+        display: block;
+      }
+    }
   }
 }

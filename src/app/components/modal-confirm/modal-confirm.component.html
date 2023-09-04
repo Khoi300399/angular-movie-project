@@ -1,0 +1,23 @@
+<div class="modal-confirm">
+  <div class="kind" [class]="modalData.kind">
+    <i
+      [ngClass]="{
+          'bi bi-question-circle': modalData.kind === 'info',
+        'bi bi-check-circle': modalData.kind === 'success',
+        'bi bi-x-circle': modalData.kind === 'error',
+      }"
+    ></i>
+  </div>
+  <div class="text">
+    <h4 class="title">{{ modalData.title }}</h4>
+    <p class="message">{{ modalData.message }}</p>
+  </div>
+  <div class="wrapper-btn">
+    <button class="confirm" type="button" (click)="dialogRef.close(true)">
+      {{ modalData.titleConfirm }}
+    </button>
+    <button class="cancel" type="button" (click)="dialogRef.close(false)">
+      {{ modalData.titleCancel }}
+    </button>
+  </div>
+</div>

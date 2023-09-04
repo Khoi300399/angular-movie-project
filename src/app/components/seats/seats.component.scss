@@ -1,0 +1,88 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.seats {
+  @include flexBox(center, center, $wrap: wrap);
+  gap: 5px;
+  margin-bottom: 20px;
+  .seat {
+    position: relative;
+    width: calc((100% - (5px * 15)) / 16);
+    padding-top: calc((100% - (5px * 15)) / 16 - 4px);
+    border: 2px solid $borderColor;
+    border-radius: 5px;
+    color: $graySoft;
+    font-size: 1rem;
+    background: $darkStroke;
+    transition: background-color 0.3s;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      inset: 0;
+      @include flexBox(center, center);
+    }
+    &.vip {
+      background: $secondaryColor20;
+    }
+    &.booked {
+      background: $errorColor;
+      pointer-events: none;
+      &::before {
+        content: "x";
+      }
+    }
+    &.selected {
+      background: $primaryColor20;
+      &::before {
+        content: attr(title);
+      }
+    }
+  }
+}
+.note {
+  @include flexBox(center, center);
+  gap: 20px;
+  &-item {
+    @include flexBox(center, $direction: column);
+    gap: 5px;
+  }
+  .normal {
+    @include size(20px);
+    border: 2px solid $borderColor;
+    border-radius: 5px;
+    background: $darkStroke;
+  }
+  .normal.vip {
+    background: $secondaryColor20;
+  }
+
+  .normal.booked {
+    background: $errorColor;
+  }
+  .normal.selected {
+    background: $primaryColor20;
+  }
+  .text {
+    font-size: 1.2rem;
+    color: $pureWhite;
+  }
+}
+@include minWidth(992px) {
+  .seats {
+    margin-bottom: 40px;
+    .seat {
+      font-size: 1.4rem;
+    }
+  }
+  .note {
+    gap: 30px;
+
+    .normal {
+      @include size(30px);
+    }
+    .text {
+      font-size: 1.4rem;
+    }
+  }
+}

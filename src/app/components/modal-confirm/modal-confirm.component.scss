@@ -1,0 +1,53 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.modal-confirm {
+  user-select: none;
+  @include size(350px, auto);
+  padding: 15px;
+  border-radius: 15px;
+  background: $liteBG;
+  .kind.success {
+    text-align: center;
+    font-size: 6rem;
+    color: $primaryColor20;
+    margin-bottom: 30px;
+  }
+  .kind.error {
+    @extend .success;
+    color: $errorColor;
+  }
+  .kind.info {
+    @extend .success;
+    color: $secondaryColor20;
+  }
+  .text {
+    .title,
+    .message {
+      text-align: center;
+    }
+    .title {
+      font-weight: 500;
+      font-size: 3rem;
+      color: #595959;
+    }
+    .message {
+      font-size: 1.6rem;
+      color: $text3;
+    }
+    margin-bottom: 20px;
+  }
+  .wrapper-btn {
+    @include flexBox(center, center);
+    gap: 10px;
+    .confirm {
+      padding: 15px 25px;
+      border-radius: 35px;
+      color: $pureWhite;
+      background: #3085d6;
+    }
+    .cancel {
+      @extend .confirm;
+      background: $errorColor;
+    }
+  }
+}

@@ -2,10 +2,10 @@
 @import "../../../assets/scss/helpers/mixins";
 
 .wrapper-loading {
-  position: absolute;
-  inset: 0;
+  width: 100%;
+  height: 100%;
   @include flexBox(center, center);
-  background: rgba(0, 0, 0, 0.7);
+  background: transparent;
 }
 .loading {
   @include size(50px);
@@ -20,9 +20,9 @@
       position: absolute;
       top: 0;
       left: 0;
-      @include size(10px);
+      @include size(15px);
       border-radius: 50%;
-      border: 4px solid #00aefd;
+      border: 3px solid #00aefd;
       filter: hue-rotate(calc(45deg * var(--value)));
       animation: loading 1s infinite;
       animation-delay: calc(var(--value) * 0.125s);

@@ -1,0 +1,55 @@
+<div class="cart" [class.active]="isOpenCart()">
+  <div class="content">
+    <div class="wrapper-btn">
+      <button type="button" (click)="onClosetCart()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <h2 class="title">Combo</h2>
+    <ng-container *ngFor="let combo of comboList$ | async; let i = index">
+      <div class="cart-item mb-5">
+        <div class="row align-items-center">
+          <div class="col-3">
+            <div class="thumb">
+              <img [src]="combo.image" alt="combo1" />
+            </div>
+          </div>
+          <div class="col-5 px-0">
+            <p class="name">{{ combo.name }}</p>
+            <p class="price">{{ combo.price | vnCurrency }}</p>
+          </div>
+          <div class="col-4">
+            <div class="action">
+              <ul>
+                <li>
+                  <!-- Gọi hàm giảm số lượng khi người dùng nhấn nút "minus" -->
+                  <button
+                    type="button"
+                    (click)="decreaseQuantity(combo.id)"
+                    [disabled]="combo.quantity === 0"
+                  >
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+                </li>
+                <li>
+                  <!-- Ô nhập liệu hiển thị số lượng -->
+                  <input type="number" [(ngModel)]="combo.quantity" min="0" />
+                </li>
+                <li>
+                  <!-- Gọi hàm tăng số lượng khi người dùng nhấn nút "plus" -->
+                  <button type="button" (click)="increaseQuantity(combo.id)">
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="cart-bottom">
+      <div class="label">Thành tiền:</div>
+      <div class="value">{{ getTotalPrice() | vnCurrency }}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,203 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.combo {
+  padding: 20px;
+  text-align: right;
+  button[type="button"] {
+    padding: 5px 10px;
+    color: $pureWhite;
+    @include text(1.4rem, 500, $pureWhite);
+    background: #7bae00;
+    border-radius: 35px;
+    animation: glow 1.5s forwards infinite;
+  }
+}
+.purchase {
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid $borderColor;
+  background: $softDark;
+  margin-bottom: 10px;
+  &-item {
+    @include flexBox(flex-start, space-between);
+    gap: 10px;
+    margin-bottom: 5px;
+    .label {
+      display: block;
+      white-space: nowrap;
+      @include text(1.6rem, 500, $text3);
+    }
+    .value {
+      @include text(1.4rem, 400, $text4);
+    }
+  }
+  &-item:last-child {
+    padding-top: 15px;
+    border-top: 2px dashed $borderColor;
+    .label {
+      @include text(1.8rem, 400, $text3);
+    }
+    .value {
+      @include text(2rem, 500, #7bae00);
+      text-shadow: 0 0 10px currentColor;
+    }
+  }
+  .movie-thumb {
+    position: relative;
+    width: 100%;
+    padding-top: calc(100% * 4 / 3);
+    border-radius: 5px;
+    img {
+      border-radius: inherit;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .movie-info {
+    .name {
+      @include text(1.6rem, 500, $text4);
+      span {
+        display: inline-block;
+        @include text(1.4rem, 500, $pureWhite, center);
+        @include size(30px);
+        border-radius: 5px;
+        background: $secondaryColor20;
+      }
+    }
+  }
+  .showtimes {
+    .time {
+      @include text(1.8rem, 600, $errorColor);
+      text-shadow: 0 0 10px currentColor;
+    }
+    .date {
+      @include text(1.6rem, 500);
+    }
+  }
+
+  .cinema {
+    &-info:last-child {
+      @include flexBox(flex-start, $direction: column);
+      gap: 0;
+    }
+    &-info {
+      @include flexBox(flex-start);
+      gap: 10px;
+      margin-bottom: 5px;
+      .seats {
+        @include flexBox(center, $wrap: wrap);
+        @include text(1.4rem, 500, #7bae00);
+        row-gap: 5px;
+      }
+      .seat {
+        padding-inline: 8px;
+      }
+      .seat:not(:last-child) {
+        border-right: 2px solid $borderColor;
+      }
+      .label {
+        display: block;
+        white-space: nowrap;
+        @include text(1.4rem, 500, $text3);
+      }
+      .value {
+        @include text(1.4rem, 400, $text4);
+        small.normal {
+          color: $secondaryColor;
+        }
+        small.high {
+          color: $errorColor;
+        }
+      }
+    }
+  }
+
+  .pay-item {
+    @include flexBox(center);
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .pay-img {
+    width: 35px;
+    border-radius: 5px;
+    img {
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .pay-name {
+    margin-bottom: 0;
+    color: $text4;
+  }
+  .radio {
+    position: relative;
+    @include size(15px);
+    &::before,
+    &::after {
+      content: "";
+      display: inline-block;
+      @include absoluteCenter("both");
+      transition: all 0.3s;
+    }
+    &::before {
+      @include size(15px);
+      border: 1px solid $borderColor;
+      border-radius: 50%;
+    }
+  }
+
+  input[type="radio"]:checked ~ .radio {
+    &::before {
+      border-color: $primaryColor;
+    }
+    &::after {
+      @include size(7px);
+      border-radius: 50%;
+      background: $primaryColor;
+    }
+  }
+  .pay-warning {
+    margin-top: 20px;
+    color: $text4;
+    font-size: 1.4rem;
+    text-align: center;
+    .icon {
+      margin-right: 5px;
+      color: $errorColor;
+    }
+    .highlight {
+      color: #f79320;
+    }
+  }
+}
+.submit {
+  text-align: center;
+  button[type="button"] {
+    padding: 10px 15px;
+    border-radius: 35px;
+    color: $pureWhite;
+    background: $secondaryColor20;
+    transition: all 0.3s;
+  }
+  button[type="button"]:disabled {
+    background: #afafaf;
+  }
+}
+@keyframes glow {
+  0% {
+    box-shadow: 5px 5px 20px $secondaryColor20, -5px -5px 20px $secondaryColor20;
+  }
+
+  50% {
+    box-shadow: 5px 5px 20px $primaryColor20, -5px -5px 20px $primaryColor20;
+  }
+  100% {
+    box-shadow: 5px 5px 20px $errorColor, -5px -5px 20px $errorColor;
+  }
+}

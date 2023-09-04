@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AppState } from '../../core/store/app.state';
-import { getBanner, getMovieById } from '../../core/store/movie/movie.action';
+import { getBanner } from '../../core/store/movie/movie.action';
 import { Observable } from 'rxjs';
 import { BannerModel } from '../../core/store/movie/movie.model';
-import {
-  bannerSelector,
-  movieByIdSelector,
-} from '../../core/store/movie/movie.selector';
+import { bannerSelector } from '../../core/store/movie/movie.selector';
 import { Dialog } from '@angular/cdk/dialog';
 import { ModalVideoComponent } from '../../components/modal-video/modal-video.component';
 

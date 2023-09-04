@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'bonking-ticket-movie';
+
+  loading = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.loading = true;
+      } else if (event instanceof NavigationEnd) {
+        this.loading = false;
+      }
+    });
+  }
 }

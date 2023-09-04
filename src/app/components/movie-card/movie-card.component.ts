@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Dialog } from '@angular/cdk/dialog';
 import { AppState } from '../../core/store/app.state';
 import { getMovieById } from '../../core/store/movie/movie.action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'movie-card',
@@ -19,5 +20,10 @@ export class MovieCardComponent {
       data: { link },
     });
   }
-  constructor(public dialog: Dialog) {}
+  datVe(maPhim: number) {
+    this.router.navigate(['/chi-tiet-phim'], {
+      queryParams: { maPhim },
+    });
+  }
+  constructor(public dialog: Dialog, private router: Router) {}
 }

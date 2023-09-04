@@ -1,30 +1,30 @@
 import { createReducer, on } from '@ngrx/store';
-import { TicketByShowtimesIdState } from './ticket.state';
+import { DanhSachPhongVeState } from './ticket.state';
 import * as TicketActions from './ticket.action';
 
-const initialTicketByShowtimesId: TicketByShowtimesIdState = {
-  ticket: null,
+const initialTicketByShowtimesId: DanhSachPhongVeState = {
+  danhSachPhongVe: null,
   status: 'idle',
   error: null,
 };
 
-export const ticketByShowtimesIdReducer = createReducer(
+export const danhSachPhongVeReducer = createReducer(
   initialTicketByShowtimesId,
   on(
-    TicketActions.getTicketByShowtimesId,
-    (state): TicketByShowtimesIdState => ({ ...state, status: 'loading' })
+    TicketActions.layDanhSachPhongVe,
+    (state): DanhSachPhongVeState => ({ ...state, status: 'loading' })
   ),
   on(
-    TicketActions.getTicketByShowtimesIdSuccess,
-    (state, { ticket }): TicketByShowtimesIdState => ({
+    TicketActions.layDanhSachPhongVeSuccess,
+    (state, { danhSachPhongVe }): DanhSachPhongVeState => ({
       ...state,
       status: 'loaded',
-      ticket,
+      danhSachPhongVe,
     })
   ),
   on(
-    TicketActions.getTicketByShowtimesIdFailed,
-    (state, { error }): TicketByShowtimesIdState => ({
+    TicketActions.layDanhSachPhongVeFailed,
+    (state, { error }): DanhSachPhongVeState => ({
       ...state,
       status: 'error',
       error,

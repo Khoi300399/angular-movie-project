@@ -1,0 +1,36 @@
+<ng-container *ngIf="danhSachPhongVe$ | async as danhSachPhongVe">
+  <div class="seats">
+    <ng-container *ngIf="danhSachPhongVe.danhSachGhe as danhSachGhe">
+      <button
+        *ngFor="let ghe of danhSachGhe"
+        class="seat"
+        [ngClass]="{
+          vip: ghe.loaiGhe === loaiGhe.Vip,
+          booked: ghe.daDat,
+          selected: isSeatSelected(ghe)
+        }"
+        [title]="ghe.tenGhe"
+        (click)="toggleSeat(ghe)"
+        type="button"
+      ></button>
+    </ng-container>
+  </div>
+  <div class="note">
+    <div class="note-item">
+      <span class="normal"></span>
+      <span class="text">Ghế thường</span>
+    </div>
+    <div class="note-item">
+      <span class="normal vip"></span>
+      <span class="text">Ghế VIP</span>
+    </div>
+    <div class="note-item">
+      <span class="normal selected"></span>
+      <span class="text">Ghế đã chọn</span>
+    </div>
+    <div class="note-item">
+      <span class="normal booked"></span>
+      <span class="text">Ghế đã đặt</span>
+    </div>
+  </div>
+</ng-container>

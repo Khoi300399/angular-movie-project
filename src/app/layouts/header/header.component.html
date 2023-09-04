@@ -108,23 +108,22 @@
           </div>
         </div>
       </div>
-
       <nav class="navbar" [class.active]="isActiveMenu" #navbar>
         <ul class="navbar-menu">
           <li class="navbar-menu-item active">
-            <a href="#!" title="Trang Chủ">Trang Chủ</a>
+            <a [routerLink]="['']" title="Trang Chủ">Trang Chủ</a>
           </li>
-          <li class="navbar-menu-item">
-            <a href="#!" title="Kho Phim">Kho Phim</a>
+          <li class="navbar-menu-item" routerLink fragment="movies">
+            <a href="#movies" title="Kho Phim">Kho Phim</a>
           </li>
-          <li class="navbar-menu-item">
-            <a href="#!" title="Cụm Rạp">Cụm Rạp</a>
+          <li class="navbar-menu-item" routerLink fragment="cinemas">
+            <a href="#cinemas" title="Cụm Rạp">Cụm Rạp</a>
           </li>
           <li class="navbar-menu-item">
             <a href="#!" title="Tin Tức">Tin Tức</a>
           </li>
-          <li class="navbar-menu-item">
-            <a href="#!" title="Ứng Dụng">Ứng Dụng</a>
+          <li class="navbar-menu-item" routerLink fragment="application">
+            <a href="#application" title="Ứng Dụng">Ứng Dụng</a>
           </li>
         </ul>
       </nav>

@@ -1,0 +1,32 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.modal-warning {
+  @include size(300px, auto);
+  padding: 15px;
+  border-radius: 15px;
+  background: $liteBG;
+  .image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
+    margin-bottom: 10px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .notification {
+    @include text(1.4rem, 400, $text3, center);
+    margin-bottom: 30px;
+  }
+  .wrapper-btn {
+    width: fit-content;
+    margin-inline: auto;
+    button[type="button"] {
+      padding: 7px 25px;
+      border-radius: 35px;
+      border: 2px solid $errorColor;
+      color: $errorColor;
+    }
+  }
+}

@@ -3,7 +3,7 @@
   height: $height;
 }
 
-@mixin text($fs, $fw: 500, $color: $primary-color, $position: left) {
+@mixin text($fs, $fw: 500, $color: $primaryColor, $position: left) {
   font-size: $fs;
   font-weight: $fw;
   color: $color;
@@ -28,13 +28,13 @@
 }
 
 @mixin flexBox(
-  $aling-items: stretch,
+  $align-items: stretch,
   $justify-content: stretch,
   $direction: "row",
   $wrap: "no-wrap"
 ) {
   display: flex;
-  align-items: $aling-items;
+  align-items: $align-items;
   justify-content: $justify-content;
   flex-direction: $direction;
   flex-wrap: $wrap;

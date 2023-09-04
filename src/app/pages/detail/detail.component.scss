@@ -1,0 +1,277 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+
+.detail {
+  padding-block: 100px;
+
+  .content {
+    position: relative;
+    background: url("../../../assets/images/bg.jpg") no-repeat center center /
+      cover;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+    z-index: 10;
+    &::before {
+      content: "";
+      display: inline-block;
+      border-radius: inherit;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(1, 1, 1, 0.6);
+      z-index: -1;
+    }
+    .thumb {
+      position: relative;
+      width: 100%;
+      padding-top: calc(100% * 4 / 3);
+      overflow: hidden;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+      }
+    }
+    .name {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: $text4;
+      span {
+        display: inline-block;
+        @include text(1.4rem, 500, $pureWhite, center);
+        @include size(30px);
+        border-radius: 5px;
+        background: $secondaryColor20;
+      }
+    }
+    .meta {
+      font-size: 1.6rem;
+      color: $text4;
+      margin-bottom: 10px;
+      .date {
+        margin-right: 20px;
+      }
+      .rate i {
+        color: #f1bf00;
+      }
+    }
+    .desc {
+      margin-bottom: 0;
+      font-size: 1.4rem;
+    }
+  }
+
+  .tabs {
+    position: relative;
+    border: 1px solid $borderColor;
+    overflow: hidden;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(1, 1, 1, 0.6);
+    }
+    .wrapper-tab {
+      position: relative;
+      height: 100%;
+      .line {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 0;
+        width: 1px;
+        background-color: $secondaryColor;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+    .tab {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      border-right: 1px solid $borderColor;
+
+      /* width */
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 4px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background-color: $darkSecondary;
+        border-radius: 10px;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background-color: $secondaryColor;
+        border-radius: 10px;
+        border: 2px solid $secondaryColor;
+      }
+    }
+    .tab-btn.active {
+      opacity: 1;
+    }
+    .tab-btn {
+      position: relative;
+      height: 90px;
+      opacity: 0.6;
+    }
+
+    //   TAB LOGO
+    .tab-logo {
+      z-index: 10;
+      @include flexBox(center);
+      overflow-x: auto;
+      &-item {
+        @include size(90px);
+      }
+      &-btn::after {
+        content: "";
+        display: inline-block;
+        @include absoluteCenter("left");
+        bottom: -0.5px;
+        @include size(80%, 1px);
+        background: $borderColor;
+      }
+      &-btn {
+        width: 90px;
+        padding: 20px;
+        img {
+          @include size(50px);
+          object-fit: cover;
+        }
+      }
+    }
+
+    //   TAB META
+    .tab-meta {
+      @include flexBox(center);
+      z-index: 10;
+      min-width: 400px;
+      width: 400px;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      &-item {
+        width: 100%;
+        .tab-meta-btn::after {
+          content: "";
+          display: inline-block;
+          @include absoluteCenter("left");
+          bottom: -0.5px;
+          @include size(80%, 1px);
+          background: $borderColor;
+        }
+      }
+      &-btn {
+        width: 100%;
+        padding-inline: 20px;
+        .cinema,
+        .address {
+          margin-bottom: 0;
+          text-align: left;
+        }
+        .cinema {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          color: $primaryColor;
+          font-weight: 400;
+        }
+        .address {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          font-size: 1.2rem;
+          color: $text4;
+        }
+      }
+    }
+
+    //   TAB INFO
+    .tab-info {
+      padding: 0;
+      margin: 0;
+      z-index: 10;
+      max-width: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: auto;
+      &-item {
+        position: relative;
+        padding: 20px;
+        min-width: 100%;
+      }
+
+      .showtimes {
+        @include flexBox(flex-start, $wrap: wrap);
+        overflow-x: hidden;
+        overflow-y: auto;
+        gap: 10px;
+
+        a {
+          user-select: none;
+          background: $darkStroke;
+          padding: 10px 5px;
+          border-radius: 5px;
+          font-weight: 500;
+          cursor: pointer;
+          &:hover {
+            .date {
+              color: $primaryColor;
+            }
+            .time {
+              color: $errorColor;
+            }
+          }
+          .date,
+          .time {
+            color: $text4;
+            transition: color 0.3s;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include minWidth(992px) {
+  .detail {
+    .content {
+      .name {
+        font-size: 2.2rem;
+      }
+      .desc {
+        font-size: 1.6rem;
+      }
+    }
+    .tabs {
+      @include flexBox(flex-start);
+      .tab-logo,
+      .tab-meta {
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .wrapper-tab {
+        .line {
+          display: block;
+        }
+      }
+    }
+  }
+}

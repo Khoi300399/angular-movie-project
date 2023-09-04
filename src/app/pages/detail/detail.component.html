@@ -1,0 +1,116 @@
+<home-template>
+  <ng-container *ngIf="lichChieuPhim$ | async as lichChieuPhim">
+    <section class="detail">
+      <div class="container">
+        <div class="content">
+          <div class="row">
+            <div class="mb-5 mb-lg-0 col-12 col-md-3 col-xl-2">
+              <div class="thumb">
+                <img
+                  src="https://movienew.cybersoft.edu.vn/hinhanh/nghe-thuat-san-quy-va-nau-my_gp09.jpg"
+                  alt="thumbnail"
+                />
+              </div>
+            </div>
+            <div class="mb-5 mb-lg-0 col-12 col-md-9 col-xl-10">
+              <h3 class="name"><span>2D</span> {{ lichChieuPhim.tenPhim }}</h3>
+              <div class="meta">
+                <span class="date"
+                  >Khởi chiếu:
+                  {{ lichChieuPhim.ngayKhoiChieu | date : "dd/MM/yyyy" }}</span
+                >
+                <span class="rate"
+                  >{{ lichChieuPhim.danhGia }} <i class="bx bxs-star"></i>
+                </span>
+              </div>
+              <p class="desc"><span>Mô tả: </span>{{ lichChieuPhim.moTa }}</p>
+            </div>
+          </div>
+        </div>
+
+        <ng-container
+          *ngIf="lichChieuPhim.heThongRapChieu as heThongRapChieuList"
+        >
+          <div class="tabs">
+            <div class="wrapper-tab">
+              <ul class="tab tab-logo">
+                <ng-container
+                  *ngFor="
+                    let heThongRapChieu of heThongRapChieuList;
+                    index as idx
+                  "
+                >
+                  <li #itemLogo class="tab-logo-item">
+                    <button
+                      type="button"
+                      class="tab-btn tab-logo-btn"
+                      [class.active]="idx === heThongRapChieuActiveIndex"
+                      (click)="onClickLogo(idx)"
+                    >
+                      <img [src]="heThongRapChieu.logo" alt="logo" />
+                    </button>
+                  </li>
+                </ng-container>
+              </ul>
+              <div #lineLogo class="line"></div>
+            </div>
+            <ng-container
+              *ngIf="
+                heThongRapChieuList[heThongRapChieuActiveIndex]
+                  .cumRapChieu as cumRapChieuList
+              "
+            >
+              <div class="wrapper-tab">
+                <ul class="tab tab-meta">
+                  <ng-container
+                    *ngFor="let cumRap of cumRapChieuList; index as idx"
+                  >
+                    <li #itemMeta class="tab-meta-item">
+                      <button
+                        type="button"
+                        class="tab-btn tab-meta-btn"
+                        [class.active]="idx === cumRapChieuActiveIndex"
+                        (click)="onClickMeta(idx)"
+                      >
+                        <h4 class="cinema">{{ cumRap.tenCumRap }}</h4>
+                        <p class="address">{{ cumRap.diaChi }}</p>
+                      </button>
+                    </li>
+                  </ng-container>
+                </ul>
+                <div #lineMeta class="line"></div>
+              </div>
+              <ul class="tab tab-info">
+                <li class="tab-info-item">
+                  <div class="showtimes">
+                    <ng-container
+                      *ngFor="
+                        let lichChieuPhim of cumRapChieuList[
+                          cumRapChieuActiveIndex
+                        ].lichChieuPhim
+                      "
+                    >
+                      <a
+                        [routerLink]="['/dat-ve']"
+                        [queryParams]="{
+                          maLichChieu: lichChieuPhim.maLichChieu
+                        }"
+                      >
+                        <span class="date">{{
+                          lichChieuPhim.ngayChieuGioChieu | date : "dd/MM/yyyy"
+                        }}</span>
+                        <span class="time">{{
+                          lichChieuPhim.ngayChieuGioChieu | date : " ~ hh:mm"
+                        }}</span>
+                      </a>
+                    </ng-container>
+                  </div>
+                </li>
+              </ul>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+  </ng-container>
+</home-template>

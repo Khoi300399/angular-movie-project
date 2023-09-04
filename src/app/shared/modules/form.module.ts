@@ -25,16 +25,6 @@ import { ModalRegisterComponent } from '../../components/modal-register/modal-re
       multi: true,
     },
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-      progressBar: true,
-      closeButton: true,
-    }),
-  ],
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class FormModule {}

@@ -3,26 +3,25 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as TicketActions from './ticket.action';
 import { catchError, exhaustMap, map, of } from 'rxjs';
 import { TicketService } from '../../services/ticket.service';
-import { TicketByShowtimesIdRes } from './ticket.model';
+import { DanhSachPhongVeModel, Response } from './ticket.model';
 
 @Injectable()
 export class TicketEffects {
-  getTicketByshowtimesId$ = createEffect(() =>
+  layDanhSachPhongVe$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(TicketActions.getTicketByShowtimesId),
-      exhaustMap(({ showtimesId }) =>
-        this.ticketService.getTicketByShowtimesId(showtimesId).pipe(
-          map((response: TicketByShowtimesIdRes) => {
-            console.log('Lấy danh sách phòng vé thành công');
-            return TicketActions.getTicketByShowtimesIdSuccess({
-              ticket: response.content,
+      ofType(TicketActions.layDanhSachPhongVe),
+      exhaustMap(({ maLichChieu }) =>
+        this.ticketService.getDanhSachPhongVe(maLichChieu).pipe(
+          map((response: Response<DanhSachPhongVeModel>) => {
+            return TicketActions.layDanhSachPhongVeSuccess({
+              danhSachPhongVe: response.content,
             });
           }),
-          catchError(({ error }) => {
-            alert(error.message);
+          catchError(({ error }: { error: Response<string> }) => {
+            alert(error.content);
             return of(
-              TicketActions.getTicketByShowtimesIdFailed({
-                error: error.message,
+              TicketActions.layDanhSachPhongVeFailed({
+                error: error.content,
               })
             );
           })

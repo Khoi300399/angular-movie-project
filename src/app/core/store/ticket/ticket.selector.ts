@@ -1,12 +1,15 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TicketByShowtimesIdState } from './ticket.state';
+import { DanhSachPhongVeState } from './ticket.state';
 
-const featureTicketByShowtimesId =
-  createFeatureSelector<TicketByShowtimesIdState>(
-    'feature_ticketByShowtimesId'
-  );
+const featureDanhSachPhongVe = createFeatureSelector<DanhSachPhongVeState>(
+  'feature_danhSachPhongVe'
+);
 
-export const ticketByShowtimesIdSelector = createSelector(
-  featureTicketByShowtimesId,
-  (state) => state.ticket
+export const danhSachPhongVeSelector = createSelector(
+  featureDanhSachPhongVe,
+  (state) => state.danhSachPhongVe
+);
+export const danhSachPhongVeStatusSelector = createSelector(
+  featureDanhSachPhongVe,
+  (state) => state.status
 );

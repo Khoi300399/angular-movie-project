@@ -1,12 +1,12 @@
-export interface TicketByShowtimesIdRes {
+export interface Response<T> {
   statusCode: number;
   message: string;
-  content: TicketByShowtimesIdModel;
+  content: T;
   dateTime: Date;
   messageConstants: null;
 }
 
-export interface TicketByShowtimesIdModel {
+export interface DanhSachPhongVeModel {
   thongTinPhim: ThongTinPhim;
   danhSachGhe: DanhSachGhe[];
 }
@@ -19,7 +19,7 @@ export interface DanhSachGhe {
   stt: string;
   giaVe: number;
   daDat: boolean;
-  taiKhoanNguoiDat: null;
+  taiKhoanNguoiDat: string | null;
 }
 
 export enum LoaiGhe {
@@ -36,4 +36,13 @@ export interface ThongTinPhim {
   hinhAnh: string;
   ngayChieu: string;
   gioChieu: string;
+}
+export interface DatVeModel {
+  maLichChieu: number;
+  danhSachVe: DanhSachVe[];
+}
+
+export interface DanhSachVe {
+  maGhe: number;
+  giaVe: number;
 }

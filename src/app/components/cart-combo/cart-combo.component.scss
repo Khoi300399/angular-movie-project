@@ -1,0 +1,134 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+
+.cart.active {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+.cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  background: $darkSoft;
+  @include flexBox(center);
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: $primaryColor20 0px 0px 15px;
+  transition: all 0.3s ease;
+  .content {
+    width: 100%;
+    padding-inline: 15px;
+  }
+  &-bottom {
+    @include flexBox(center, space-between);
+    gap: 5px;
+    padding-block: 20px;
+    border-top: 2px dashed $borderColor;
+    .label {
+      @include text(2rem, 600, $text4);
+    }
+    .value {
+      @include text(2rem, 500, #7bae00);
+      text-shadow: 0 0 10px currentColor;
+    }
+  }
+  .thumb {
+    border-radius: 5px;
+    img {
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .title {
+    @include text(4.5rem, 600, $errorColor, center);
+    margin-bottom: 30px;
+  }
+  .wrapper-btn {
+    margin-left: auto;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    button {
+      color: $pureWhite;
+      transition: color 0.3s;
+    }
+    button:hover {
+      color: $errorColor;
+    }
+  }
+  .name {
+    @include text(2rem, 500, $primaryColor, center);
+  }
+  .price {
+    @include text(2rem, 500, #eed545, center);
+  }
+  .action {
+    @include flexBox(center);
+    gap: 20px;
+    ul {
+      margin: 0;
+      padding: 0;
+      @include flexBox(center);
+    }
+
+    input {
+      @include size(40px, 30px);
+      text-align: center;
+      outline: none;
+      border: 1px solid #7bae00;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: $pureWhite;
+    }
+    /* Loại bỏ nút tăng/giảm mặc định cho trình duyệt webkit (Chrome, Safari) */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      appearance: none;
+    }
+
+    /* Loại bỏ nút tăng/giảm mặc định cho trình duyệt Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    /* Loại bỏ nút tăng/giảm mặc định cho trình duyệt Edge */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Loại bỏ nút tăng/giảm mặc định cho trình duyệt Internet Explorer */
+    input[type="number"]::-ms-clear,
+    input[type="number"]::-ms-reveal {
+      display: none;
+    }
+
+    button[type="button"] {
+      @include flexBox(center, center);
+      @include size(30px);
+      background: #7bae00;
+      color: #fff;
+      font-weight: 600;
+      z-index: 10;
+    }
+  }
+}
+
+@include minWidth(768px) {
+  .cart {
+    width: 400px;
+  }
+}
+@include minWidth(992px) {
+  .cart {
+    width: 500px;
+  }
+}

@@ -32,8 +32,8 @@ export class ModalVideoComponent implements OnInit {
     }
   }
   constructor(
-    public dialogRef: DialogRef,
     private sanitizer: DomSanitizer,
+    public dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: DialogData
   ) {}
 }

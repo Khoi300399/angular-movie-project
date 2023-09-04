@@ -1,0 +1,117 @@
+<ng-container
+  *ngIf="(danhSachPhongVe$ | async)?.['thongTinPhim'] as thongTinPhim"
+>
+  <div class="combo">
+    <button type="button" (click)="onOpentCart()">Mua Combo</button>
+  </div>
+  <div class="purchase">
+    <div class="purchase-item">
+      <span class="label">Bắp Nước:</span>
+      <span class="value">{{ getComboPrice() | vnCurrency }}</span>
+    </div>
+    <div class="purchase-item">
+      <span class="label">Vé:</span>
+      <span class="value">{{ getTicketPrice() | vnCurrency }}</span>
+    </div>
+    <div class="purchase-item">
+      <span class="label">Tổng thanh toán:</span>
+      <span class="value">{{ getTotalPrice() | vnCurrency }}</span>
+    </div>
+  </div>
+  <div class="purchase">
+    <div class="row mb-4">
+      <div class="col-2">
+        <div class="movie-thumb">
+          <img [src]="thongTinPhim.hinhAnh" alt="movie" />
+        </div>
+      </div>
+      <div class="col-10">
+        <div class="movie-info">
+          <h3 class="name"><span>2D</span> {{ thongTinPhim.tenPhim }}</h3>
+          <div class="showtimes">
+            <span class="time">{{ thongTinPhim.gioChieu }}</span> -
+            <span class="date">{{ thongTinPhim.ngayChieu }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cinema">
+      <div class="cinema-info">
+        <span class="label">Cụm rạp:</span>
+        <span class="value">{{ thongTinPhim.tenCumRap }}</span>
+      </div>
+      <div class="cinema-info">
+        <span class="label">Địa chỉ:</span>
+        <span class="value">{{ thongTinPhim.diaChi }}</span>
+      </div>
+      <div class="cinema-info">
+        <span class="label">Rạp:</span>
+        <span class="value">{{ thongTinPhim.tenRap }}</span>
+      </div>
+      <div class="cinema-info">
+        <span class="label">Ghế đã chọn:</span>
+        <div class="seats">
+          <ng-container *ngFor="let seat of getSeatBooking()">
+            <span class="seat">{{ seat.tenGhe }}</span>
+          </ng-container>
+        </div>
+      </div>
+      <div class="cinema-info">
+        <span class="label">Mã giảm giá:</span>
+        <div class="value">
+          <small class="normal">Tạm thời chưa hỗ trợ</small>
+        </div>
+      </div>
+      <div class="cinema-info">
+        <span class="label">Phương thức thanh toán:</span>
+        <span class="value"
+          ><small *ngIf="isEmptyTicket()" class="high"
+            >Vui lòng chọn ghế để hiển thị phương thức thanh toán.</small
+          ></span
+        >
+        <ul class="pay-list" *ngIf="!isEmptyTicket()">
+          <ng-container *ngFor="let payment of payments">
+            <li class="pay-item">
+              <input
+                [id]="payment.id"
+                type="radio"
+                name="pay"
+                [(ngModel)]="selectedPayment"
+                [value]="payment.id"
+                hidden
+              />
+              <label class="radio" [for]="payment.id"> </label>
+              <label class="pay-name" [for]="payment.id">{{
+                payment.label
+              }}</label>
+              <div class="pay-img">
+                <img [src]="payment.image" alt="pay" />
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+
+        <div class="pay-warning">
+          <span class="icon"
+            ><i class="fa-solid fa-circle-exclamation"></i
+          ></span>
+          <span class="text">Vé đã mua không thể đổi hoặc hoàn tiền</span>
+          <p>
+            Mã vé sẽ được gửi qua tin nhắn
+            <span class="highlight">ZMS</span> (tin nhắn Zalo) và
+            <span class="highlight">Email</span> đã nhập.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="submit">
+    <button
+      [disabled]="isDisabled()"
+      type="button"
+      (click)="onSubmit(thongTinPhim.maLichChieu)"
+    >
+      Thanh toán
+    </button>
+  </div>
+</ng-container>

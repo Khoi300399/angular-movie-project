@@ -116,6 +116,7 @@ export class HeaderComponent implements OnInit {
     public dialog: Dialog,
     private store: Store<AppState>,
     private toastr: ToastrService,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private storegeService: LocalStorageService
   ) {}
 }
