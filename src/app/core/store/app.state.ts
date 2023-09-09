@@ -1,4 +1,4 @@
-import { AuthState } from './auth/auth.state';
+import { AuthState, ThongTinTaiKhoanState } from './auth/auth.state';
 import {
   ThongTinLichChieuPhimState,
   ThongTinLichChieuHeThongRapState,
@@ -20,4 +20,5 @@ export interface AppState {
   feature_thongTinLichChieuHeThongRap: ThongTinLichChieuHeThongRapState;
   feature_thongTinCumRapTheoHeThong: ThongTinCumRapTheoHeThongState;
   feature_danhSachPhongVe: DanhSachPhongVeState;
+  feature_thongTinTaiKhoan: ThongTinTaiKhoanState;
 }

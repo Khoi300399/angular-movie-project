@@ -9,13 +9,27 @@ import {
 import { ModalLoginComponent } from '../../components/modal-login/modal-login.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/store/app.state';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  debounceTime,
+  distinctUntilChanged,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { Auth } from '../../core/store/auth/auth.model';
 import { authSeclector } from '../../core/store/auth/auth.selector';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { ACCESS_TOKEN, AUTH } from '../../core/utils/interceptor.util';
 import { logOut } from '../../core/store/auth/auth.actions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
+import { ScrollService } from '../../core/services/scroll.service';
+import { FormControl } from '@angular/forms';
+import { getMoviesPagination } from '../../core/store/movie/movie.action';
+import { DestroyService } from '../../core/services/destroy.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +38,6 @@ import { logOut } from '../../core/store/auth/auth.actions';
 })
 export class HeaderComponent implements OnInit {
   isActiveMenu: boolean = false;
-  isActiveSearch: boolean = false;
   isActiveHeader: boolean = false;
   isActiveSetting: boolean = false;
   isMobile!: boolean;
@@ -33,50 +46,11 @@ export class HeaderComponent implements OnInit {
   @ViewChild('searchIcon') searchIcon!: ElementRef<HTMLElement>;
   @ViewChild('navbar') navbar!: ElementRef<HTMLElement>;
   @ViewChild('navbarIcon') navbarIcon!: ElementRef<HTMLElement>;
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isActiveHeader = window.scrollY > 0;
-  }
-  @HostListener('window:click', ['$event'])
-  onClickOutSide(event: Event) {
-    let target = event.target as HTMLElement;
-
-    if (
-      target &&
-      this.searchIcon &&
-      this.searchIcon.nativeElement.contains(target)
-    ) {
-      this.isActiveSearch = true;
-    } else if (
-      target &&
-      this.search &&
-      !this.search.nativeElement.contains(target)
-    ) {
-      this.isActiveSearch = false;
-    }
-
-    if (
-      target &&
-      this.navbarIcon &&
-      this.navbarIcon.nativeElement.classList.contains('active') &&
-      this.navbarIcon.nativeElement.contains(target)
-    ) {
-      this.isActiveMenu = true;
-    } else if (
-      target &&
-      this.navbarIcon &&
-      !this.navbarIcon.nativeElement.classList.contains('active') &&
-      this.navbarIcon.nativeElement.contains(target)
-    ) {
-      this.isActiveMenu = false;
-    } else if (
-      target &&
-      this.navbar &&
-      !this.navbar.nativeElement.contains(target)
-    ) {
-      this.isActiveMenu = false;
-    }
   }
 
   ngOnInit(): void {
@@ -88,12 +62,7 @@ export class HeaderComponent implements OnInit {
     }
     this.auth$ = this.store.select(authSeclector);
   }
-  onClickedOutsideSearch() {
-    this.isActiveSearch = false;
-  }
-  toggleActiveSearch() {
-    this.isActiveSearch = !this.isActiveSearch;
-  }
+
   toggleActiveMenu() {
     this.isActiveMenu = !this.isActiveMenu;
   }
@@ -110,13 +79,12 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(logOut());
     this.storageService.remove(ACCESS_TOKEN);
     this.storageService.remove(AUTH);
-    this.toastr.success('Đăng xuất thành công!');
   }
+
   constructor(
     public dialog: Dialog,
     private store: Store<AppState>,
-    private toastr: ToastrService,
     private storageService: LocalStorageService,
-    private storegeService: LocalStorageService
+    private destroy$: DestroyService
   ) {}
 }

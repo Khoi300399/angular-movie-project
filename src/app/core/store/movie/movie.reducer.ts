@@ -17,6 +17,11 @@ const initialMoviesState: MoviesState = {
   status: 'idle',
   error: null,
 };
+const initialMoviesPaginationState: MoviesState = {
+  movies: [],
+  status: 'idle',
+  error: null,
+};
 const initialMoviesByNameState: MoviesState = {
   movies: [],
   status: 'idle',
@@ -24,11 +29,6 @@ const initialMoviesByNameState: MoviesState = {
 };
 const initialMovieByIdState: MovieByIdState = {
   movieById: null,
-  status: 'idle',
-  error: null,
-};
-const initialMoviesPaginationState: MoviesPaginationState = {
-  moviesPagination: [],
   status: 'idle',
   error: null,
 };
@@ -115,18 +115,18 @@ export const moviePaginationReducer = createReducer(
   initialMoviesPaginationState,
   on(
     MoviesActions.getMoviesPagination,
-    (state): MoviesPaginationState => ({ ...state, status: 'loading' })
+    (state): MoviesState => ({ ...state, status: 'loading' })
   ),
   on(
     MoviesActions.getMoviesPaginationSuccess,
-    (state, { moviesPagination }): MoviesPaginationState => ({
+    (state, action): MoviesState => ({
       ...state,
-      moviesPagination,
+      movies: action.moviesPagination,
       status: 'loaded',
     })
   ),
   on(
     MoviesActions.getMoviesPaginationFailed,
-    (state): MoviesPaginationState => ({ ...state, status: 'error' })
+    (state): MoviesState => ({ ...state, status: 'error' })
   )
 );

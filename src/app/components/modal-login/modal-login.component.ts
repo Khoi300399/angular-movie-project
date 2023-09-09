@@ -11,6 +11,7 @@ import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { authStatusSelector } from '../../core/store/auth/auth.selector';
 import { Observable, map, of, takeUntil } from 'rxjs';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
+import { ModalConfirmComponent } from '../modal-confirm/modal-confirm.component';
 
 @Component({
   selector: 'modal-login',
@@ -57,6 +58,18 @@ export class ModalLoginComponent {
     let credentials: Credentials = formGroup.value;
     this.store.dispatch(login({ credentials }));
     formGroup.reset();
+    this.store.select(authStatusSelector).subscribe((status) => {
+      if (status === 'loaded') {
+        this.dialog.open<string>(ModalConfirmComponent, {
+          data: {
+            kind: 'success',
+            title: 'Đăng nhập thành công!',
+            titleConfirm: 'OK',
+          },
+        });
+        this.dialogRef.close();
+      }
+    });
   }
   openModalRegister(): void {
     this.dialog.open<string>(ModalRegisterComponent);

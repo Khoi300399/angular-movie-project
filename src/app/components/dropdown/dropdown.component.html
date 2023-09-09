@@ -1,4 +1,4 @@
-<div class="dropdown" appClickOutside (appClickOutside)="onClickedOutside()">
+<div class="dropdown" (appClickOutside)="onClickedOutside()">
   <div class="select" #selected (click)="handleToggleDropdown()">
     <span class="selected">{{ selectedValue }}</span>
     <span class="selected-icon">

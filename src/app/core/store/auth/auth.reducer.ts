@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { AuthState, RegisterState } from './auth.state';
+import { AuthState, RegisterState, ThongTinTaiKhoanState } from './auth.state';
 import * as AuthActions from './auth.actions';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { AUTH } from '../../utils/interceptor.util';
@@ -12,6 +12,11 @@ const initialAuthState: AuthState = {
   error: null,
 };
 const initialRegisterState: RegisterState = {
+  status: 'idle',
+  error: null,
+};
+const initialThongTinTaiKhoanState: ThongTinTaiKhoanState = {
+  thongTinTaiKhoan: null,
   status: 'idle',
   error: null,
 };
@@ -67,6 +72,29 @@ export const registerReducer = createReducer(
       ...state,
       status: 'error',
       error: action.error,
+    })
+  )
+);
+export const thongTinTaiKhoanReducer = createReducer(
+  initialThongTinTaiKhoanState,
+  on(
+    AuthActions.layThongTinTaiKhoan,
+    (state): ThongTinTaiKhoanState => ({ ...state, status: 'loading' })
+  ),
+  on(
+    AuthActions.layThongTinTaiKhoanSuccess,
+    (state, { thongTinTaiKhoan }): ThongTinTaiKhoanState => ({
+      ...state,
+      status: 'loaded',
+      thongTinTaiKhoan,
+    })
+  ),
+  on(
+    AuthActions.layThongTinTaiKhoanFailed,
+    (state, { error }): ThongTinTaiKhoanState => ({
+      ...state,
+      status: 'error',
+      error: error,
     })
   )
 );

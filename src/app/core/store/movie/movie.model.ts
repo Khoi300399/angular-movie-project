@@ -1,15 +1,16 @@
+export interface Response<T> {
+  statusCode: number;
+  message: string;
+  content: T;
+  dateTime: Date;
+  messageConstants: null;
+}
+
 export interface BannerModel {
   maBanner: number;
   maPhim: number;
   hinhAnh: string;
   trailer: string;
-}
-export interface BannerRes {
-  statusCode: number;
-  message: string;
-  content: BannerModel[];
-  dateTime: Date;
-  messageConstants: null;
 }
 
 export interface MoviesModel {
@@ -26,21 +27,6 @@ export interface MoviesModel {
   dangChieu: boolean;
   sapChieu: boolean;
 }
-export interface MoviesRes {
-  statusCode: number;
-  message: string;
-  content: MoviesModel[];
-  dateTime: Date;
-  messageConstants: null;
-}
-
-export interface MoviesPginationRes {
-  currentPage: number;
-  count: number;
-  totalPages: number;
-  totalCount: number;
-  items: MoviesModel[];
-}
 
 export interface MovieByIdModel {
   maPhim: number;
@@ -55,11 +41,4 @@ export interface MovieByIdModel {
   sapChieu: boolean;
   ngayKhoiChieu: Date;
   danhGia: number;
-}
-export interface MovieByIdRes {
-  statusCode: number;
-  message: string;
-  content: MovieByIdModel;
-  dateTime: Date;
-  messageConstants: null;
 }

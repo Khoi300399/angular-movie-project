@@ -25,6 +25,7 @@ import { ModalRegisterComponent } from '../../components/modal-register/modal-re
       multi: true,
     },
   ],
+  exports: [ButtonIconComponent, InputFormComponent, ButtonSubmitComponent],
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class FormModule {}

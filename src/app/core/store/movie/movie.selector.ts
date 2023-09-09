@@ -1,10 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  BannerState,
-  MovieByIdState,
-  MoviesPaginationState,
-  MoviesState,
-} from './movie.state';
+import { BannerState, MovieByIdState, MoviesState } from './movie.state';
 
 export const featureBanner =
   createFeatureSelector<BannerState>('feature_banner');
@@ -13,8 +8,9 @@ export const featureMovies =
 export const featureMoviesByName = createFeatureSelector<MoviesState>(
   'feature_moviesByName'
 );
-export const featureMoviesPagination =
-  createFeatureSelector<MoviesPaginationState>('feature_moviesPagination');
+export const featureMoviesPagination = createFeatureSelector<MoviesState>(
+  'feature_moviesPagination'
+);
 export const featureMovieById =
   createFeatureSelector<MovieByIdState>('feature_movieById');
 
@@ -42,7 +38,7 @@ export const movieByIdStatusSelector = createSelector(
 );
 export const moviesPaginationSelector = createSelector(
   featureMoviesPagination,
-  (state) => state.moviesPagination
+  (state) => state.movies
 );
 export const moviesPaginationStatusSelector = createSelector(
   featureMoviesPagination,

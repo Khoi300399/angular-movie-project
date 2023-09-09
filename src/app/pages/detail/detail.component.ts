@@ -10,12 +10,17 @@ import {
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core/store/app.state';
-import { Observable, takeUntil, tap } from 'rxjs';
+import { Observable, map, takeUntil, tap } from 'rxjs';
 import { ThongTinLichChieuPhimModel } from '../../core/store/cinema/cinema.model';
 import { layThongTinLichChieuPhim } from '../../core/store/cinema/cinema.actions';
-import { lichChieuPhimSelector } from '../../core/store/cinema/cinema.selector';
+import {
+  lichChieuPhimSelector,
+  lichChieuPhimStatusSelector,
+} from '../../core/store/cinema/cinema.selector';
 import { DestroyService } from '../../core/services/destroy.service';
 import { ActivatedRoute } from '@angular/router';
+import { Dialog } from '@angular/cdk/dialog';
+import { ModalVideoComponent } from '../../components/modal-video/modal-video.component';
 
 @Component({
   selector: 'detail',
@@ -30,6 +35,10 @@ export class DetailComponent implements OnInit, AfterViewInit {
   lichChieuPhim$!: Observable<ThongTinLichChieuPhimModel | null>;
   heThongRapChieuActiveIndex: number = 0;
   cumRapChieuActiveIndex: number = 0;
+  loading$: Observable<boolean> = this.store.pipe(
+    select(lichChieuPhimStatusSelector),
+    map((status) => status === 'loading')
+  );
 
   ngOnInit(): void {
     this.scrollToTop();
@@ -91,10 +100,16 @@ export class DetailComponent implements OnInit, AfterViewInit {
   scrollToTop(): void {
     window.scrollTo(0, 0);
   }
+  onDialogVideo(link: string) {
+    this.dialog.open<string>(ModalVideoComponent, {
+      data: { link },
+    });
+  }
   constructor(
     private store: Store<AppState>,
     private renderer: Renderer2,
     private destroy$: DestroyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: Dialog
   ) {}
 }

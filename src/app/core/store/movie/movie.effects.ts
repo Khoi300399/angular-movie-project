@@ -14,10 +14,10 @@ import {
 } from 'rxjs';
 import { MoviesService } from '../../services/movie.service';
 import {
-  BannerRes,
-  MovieByIdRes,
-  MoviesPginationRes,
-  MoviesRes,
+  BannerModel,
+  MovieByIdModel,
+  MoviesModel,
+  Response,
 } from './movie.model';
 
 @Injectable()
@@ -27,10 +27,10 @@ export class MoviesEffects {
       ofType(MoviesActions.getBanner),
       exhaustMap(() =>
         this.moviesService.getBanner().pipe(
-          switchMap((response: BannerRes) => {
+          switchMap((response: Response<BannerModel[]>) => {
             const bannerObservables = response.content.map((banner) =>
               this.moviesService.getMovieById(banner.maPhim).pipe(
-                map((res: MovieByIdRes) => ({
+                map((res: Response<MovieByIdModel>) => ({
                   ...banner,
                   trailer: res.content.trailer,
                 }))
@@ -60,7 +60,7 @@ export class MoviesEffects {
       ofType(MoviesActions.getMovieById),
       exhaustMap(({ id }) =>
         this.moviesService.getMovieById(id).pipe(
-          map((response: MovieByIdRes) => {
+          map((response: Response<MovieByIdModel>) => {
             console.log('Lấy thông tin phim thành công!', response.content);
             return MoviesActions.getMovieByIdSuccess({
               movieById: response.content,
@@ -81,8 +81,7 @@ export class MoviesEffects {
       ofType(MoviesActions.getMovies),
       exhaustMap(() =>
         this.moviesService.getMovies('').pipe(
-          map((response: MoviesRes) => {
-            console.log('Lấy danh sách phim thành công!');
+          map((response: Response<MoviesModel[]>) => {
             return MoviesActions.getMoviesSuccess({
               movies: response.content,
             });
@@ -101,7 +100,7 @@ export class MoviesEffects {
       debounceTime(300),
       switchMap(({ tenPhim }) =>
         this.moviesService.getMovies(tenPhim).pipe(
-          map((response: MoviesRes) => {
+          map((response: Response<MoviesModel[]>) => {
             console.log('Lấy danh sách phim thành công!');
             return MoviesActions.getMoviesSuccess({
               movies: response.content,
@@ -118,24 +117,25 @@ export class MoviesEffects {
   getMoviesPagination$ = createEffect(() =>
     this.action$.pipe(
       ofType(MoviesActions.getMoviesPagination),
-      exhaustMap(({ tenPhim, soTrang, soPhanTuTrenTrang }) =>
-        this.moviesService
-          .getMoviesPagination(tenPhim, soTrang, soPhanTuTrenTrang)
-          .pipe(
-            map((response: MoviesPginationRes) => {
-              console.log('Lấy danh sách phim phân trang thành công!');
-              return MoviesActions.getMoviesPaginationSuccess({
-                moviesPagination: response.items,
-              });
-            }),
-            catchError((error) => {
-              return of(
-                MoviesActions.getMoviesPaginationFailed({
-                  error: error.message,
-                })
-              );
-            })
-          )
+      tap(({ keywords }) => {
+        console.log('keywords', keywords);
+      }),
+      exhaustMap(({ keywords }) =>
+        this.moviesService.getMovies(keywords).pipe(
+          map((response: Response<MoviesModel[]>) => {
+            console.log('Lấy danh sách phim phân trang thành công!');
+            return MoviesActions.getMoviesPaginationSuccess({
+              moviesPagination: response.content,
+            });
+          }),
+          catchError(({ error }) => {
+            return of(
+              MoviesActions.getMoviesPaginationFailed({
+                error: error.content,
+              })
+            );
+          })
+        )
       )
     )
   );

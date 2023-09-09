@@ -1,0 +1,35 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.update-account {
+  .wrapper-btn {
+    @include flexBox(center, center);
+  }
+  .submit {
+    font-family: $secondary-font;
+    user-select: none;
+    margin-inline: auto;
+    width: max-content;
+    background: $primaryColor;
+    background-size: 200%;
+    border-radius: 10px;
+    padding: 15px 20px;
+    @include text(1.6rem, 600, $pureWhite, center);
+    transition: all 0.3s ease;
+    &:hover {
+      background-position: right center;
+    }
+  }
+
+  .submit:disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+  .loading {
+    @include size(30px);
+    margin-inline: auto;
+    border-radius: 50%;
+    border: 3px solid $pureWhite;
+    border-color: $pureWhite transparent $pureWhite transparent;
+    animation: spin 1s linear infinite;
+  }
+}

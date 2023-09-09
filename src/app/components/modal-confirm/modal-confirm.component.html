@@ -9,14 +9,24 @@
     ></i>
   </div>
   <div class="text">
-    <h4 class="title">{{ modalData.title }}</h4>
-    <p class="message">{{ modalData.message }}</p>
+    <h4 *ngIf="modalData.title" class="title">{{ modalData.title }}</h4>
+    <p *ngIf="modalData.message" class="message">{{ modalData.message }}</p>
   </div>
   <div class="wrapper-btn">
-    <button class="confirm" type="button" (click)="dialogRef.close(true)">
+    <button
+      *ngIf="modalData.titleConfirm"
+      class="confirm"
+      type="button"
+      (click)="dialogRef.close(true)"
+    >
       {{ modalData.titleConfirm }}
     </button>
-    <button class="cancel" type="button" (click)="dialogRef.close(false)">
+    <button
+      *ngIf="modalData.titleCancel"
+      class="cancel"
+      type="button"
+      (click)="dialogRef.close(false)"
+    >
       {{ modalData.titleCancel }}
     </button>
   </div>

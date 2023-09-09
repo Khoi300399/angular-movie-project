@@ -14,6 +14,9 @@ import {
   LichChieuPhim,
   ThongTinLichChieuPhimModel,
 } from '../../core/store/cinema/cinema.model';
+import { Dialog } from '@angular/cdk/dialog';
+import { ModalWarningComponent } from '../modal-warning/modal-warning.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'booking',
@@ -190,9 +193,34 @@ export class BookingComponent implements OnInit {
       this.selectedTime = '';
     }
   }
-
-  constructor(private store: Store<AppState>) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
+  onNotify(message: string) {
+    this.dialog.open<string>(ModalWarningComponent, {
+      data: {
+        button: 'OK',
+        notification: message,
+      },
+      disableClose: true,
+    });
   }
+
+  onBookingTicket() {
+    if (!this.selectedMovie) {
+      this.onNotify('Vui lòng chọn phim');
+    } else if (!this.selectedCinema) {
+      this.onNotify('Vui lòng chọn rạp');
+    } else if (!this.selectedDate) {
+      this.onNotify('Vui lòng chọn ngày chiếu');
+    } else if (!this.selectedTime) {
+      this.onNotify('Vui lòng chọn suất chiếu');
+    } else {
+      this.router.navigate(['/dat-ve'], {
+        queryParams: { maLichChieu: this.maLichChieu },
+      });
+    }
+  }
+  constructor(
+    private store: Store<AppState>,
+    private dialog: Dialog,
+    private router: Router
+  ) {}
 }

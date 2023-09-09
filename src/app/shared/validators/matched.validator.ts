@@ -1,10 +1,10 @@
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
-export function DuplicateControls(
+export function MatchedControls(
   firstControlName: string,
   secondControlName: string
 ): ValidationErrors | null {
-  return function (formGroup: FormGroup) {
+  return function (formGroup: FormGroup): ValidationErrors | null {
     const { value: firstControlValue } = formGroup.get(
       firstControlName
     ) as FormControl;

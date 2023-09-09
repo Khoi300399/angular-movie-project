@@ -6,13 +6,10 @@ import { ReserveRoutingModule } from './reserve-routing.module';
 import { SeatsComponent } from '../../components/seats/seats.component';
 import { PurchaseComponent } from '../../components/purchase/purchase.component';
 import { CountdownDirective } from '../../core/directives/countdown.directive';
-import { ModalWarningComponent } from '../../components/modal-warning/modal-warning.component';
 import { DialogModule } from '@angular/cdk/dialog';
-import { VnCurrencyPipe } from '../../core/pipes/vn-currency.pipe';
 import { CartComboComponent } from '../../components/cart-combo/cart-combo.component';
 import { FormsModule } from '@angular/forms';
-import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
+import { SharedModule } from '../../shared/modules/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,10 +18,6 @@ import { LoadingComponent } from '../../components/loading/loading.component';
     PurchaseComponent,
     CountdownDirective,
     CartComboComponent,
-    ModalWarningComponent,
-    ModalConfirmComponent,
-    LoadingComponent,
-    VnCurrencyPipe,
   ],
   imports: [
     CommonModule,
@@ -32,6 +25,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
     HomeTemplateModule,
     DialogModule,
     FormsModule,
+    SharedModule,
   ],
 })
 export class ReserveModule {}

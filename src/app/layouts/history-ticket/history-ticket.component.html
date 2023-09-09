@@ -1,0 +1,34 @@
+<ng-container *ngIf="thongTinTaiKhoan$ | async as thongTinTaiKhoan">
+  <div class="history-ticket">
+    <table>
+      <thead>
+        <tr>
+          <th>Stt</th>
+          <th>Tên phim</th>
+          <th>Thời gian đặt</th>
+          <th>Số ghế</th>
+          <th>Mã vé</th>
+          <th>Giá</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="thongTinTaiKhoan.thongTinDatVe as thongTinDatVe">
+          <tr *ngFor="let thongTin of thongTinDatVe; let idx = index">
+            <td>{{ idx + 1 }}</td>
+            <td class="name">{{ thongTin.tenPhim }}</td>
+            <td class="date">
+              {{ thongTin.ngayDat | date : "dd/MM/yyyy , (hh:mm)" }}
+            </td>
+            <td class="seat-list">
+              <span class="seat" *ngFor="let ghe of thongTin.danhSachGhe">{{
+                ghe.tenGhe
+              }}</span>
+            </td>
+            <td>{{ thongTin.maVe }}</td>
+            <td class="price">{{ thongTin.giaVe | vnCurrency }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-container>

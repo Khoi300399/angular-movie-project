@@ -14,6 +14,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/detail/detail.module').then((m) => m.DetailModule),
   },
+  {
+    path: 'tai-khoan',
+    loadChildren: () =>
+      import('./pages/account/account.module').then((m) => m.AccountModule),
+  },
 ];
 
 @NgModule({

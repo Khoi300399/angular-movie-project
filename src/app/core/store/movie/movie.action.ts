@@ -36,19 +36,17 @@ export const getMoviesFailed = createAction(
   GET_MOVIES_FAILED,
   props<{ error?: string }>()
 );
+
 //------------------ GET_MOVIE_BY_NAME ----------------------
 export const getMoviesByName = createAction(
   GET_MOVIES_BY_NAME,
   props<{ tenPhim: string }>()
 );
+
 //------------------ GET_MOVIES_PAGINATION ----------------------
 export const getMoviesPagination = createAction(
   GET_MOVIES_PAGINATION,
-  props<{
-    tenPhim?: string;
-    soTrang: number;
-    soPhanTuTrenTrang: number;
-  }>()
+  props<{ keywords?: string }>()
 );
 export const getMoviesPaginationSuccess = createAction(
   GET_MOVIES_PAGINATION_SUCCESS,

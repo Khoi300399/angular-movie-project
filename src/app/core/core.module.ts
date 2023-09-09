@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { authReducer, registerReducer } from './store/auth/auth.reducer';
+import {
+  authReducer,
+  registerReducer,
+  thongTinTaiKhoanReducer,
+} from './store/auth/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import {
   bannerReducer,
@@ -24,6 +28,7 @@ import { TicketEffects } from './store/ticket/ticket.effects';
   imports: [
     StoreModule.forFeature('feature_auth', authReducer),
     StoreModule.forFeature('feature_register', registerReducer),
+    StoreModule.forFeature('feature_thongTinTaiKhoan', thongTinTaiKhoanReducer),
     StoreModule.forFeature('feature_banner', bannerReducer),
     StoreModule.forFeature('feature_movies', moviesReducer),
     StoreModule.forFeature('feature_moviesByName', moviesByNameReducer),

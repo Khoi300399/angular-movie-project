@@ -6,10 +6,8 @@ import { AuthService } from '../../services/auth.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import * as AuthActions from './auth.actions';
 import { ACCESS_TOKEN, AUTH } from '../../utils/interceptor.util';
-import { AuthRes } from './auth.model';
+import { Auth, Response, ThongTinTaiKhoanModel } from './auth.model';
 import { ToastrService } from 'ngx-toastr';
-import { ModalLoginComponent } from '../../../components/modal-login/modal-login.component';
-import { ModalRegisterComponent } from '../../../components/modal-register/modal-register.component';
 
 @Injectable()
 export class AuthEffects {
@@ -18,19 +16,17 @@ export class AuthEffects {
       ofType(AuthActions.login),
       exhaustMap(({ credentials }) =>
         this.authService.login(credentials).pipe(
-          tap((response: AuthRes) => {
+          tap((response: Response<Auth>) => {
             this.storageService.setObject(AUTH, response.content);
             this.storageService.setObject(
               ACCESS_TOKEN,
               response.content.accessToken
             );
           }),
-          map((response: AuthRes) => {
-            this.toastr.success('Đăng nhập thành công!');
+          map((response: Response<Auth>) => {
             return AuthActions.loginSuccess({ auth: response.content });
           }),
           catchError(({ error }) => {
-            this.toastr.error(error.content, 'Đăng nhập thất bại!');
             return of(AuthActions.loginFailed({ error: error.message }));
           })
         )
@@ -43,13 +39,32 @@ export class AuthEffects {
       ofType(AuthActions.register),
       exhaustMap(({ user }) =>
         this.authService.register(user).pipe(
-          map((response: AuthRes) => {
+          map(() => {
             this.toastr.success('Đăng ký thành công!');
             return AuthActions.registerSuccess();
           }),
           catchError(({ error }) => {
             this.toastr.error(error.content, 'Đăng ký thất bại!');
-            return of(AuthActions.registerFailed({ error: error.message }));
+            return of(AuthActions.registerFailed({ error: error.content }));
+          })
+        )
+      )
+    )
+  );
+  layThongTinTaiKhoan$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.layThongTinTaiKhoan),
+      exhaustMap(() =>
+        this.authService.layThongTinTaiKhoan().pipe(
+          map((response: Response<ThongTinTaiKhoanModel>) => {
+            return AuthActions.layThongTinTaiKhoanSuccess({
+              thongTinTaiKhoan: response.content,
+            });
+          }),
+          catchError(({ error }) => {
+            return of(
+              AuthActions.layThongTinTaiKhoanFailed({ error: error.content })
+            );
           })
         )
       )

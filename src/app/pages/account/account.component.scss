@@ -1,0 +1,53 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.account {
+  padding-block: 100px;
+  background: $darkSecondary;
+  overflow: hidden;
+  .avatar {
+    border-radius: 20px;
+    width: 50%;
+    margin-inline: auto;
+    img {
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .email {
+    margin-block: 20px;
+    text-align: center;
+    font-size: 2rem;
+  }
+  .form {
+    padding-inline: 10px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .table {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+@include minWidth(768px) {
+  .account {
+    .form {
+      width: 80%;
+    }
+  }
+}
+@include minWidth(992px) {
+  .account {
+    .form {
+      width: 60%;
+    }
+  }
+}
+@include minWidth(1200px) {
+  .account {
+    .form {
+      width: 50%;
+    }
+  }
+}

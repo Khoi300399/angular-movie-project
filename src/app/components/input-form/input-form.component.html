@@ -69,36 +69,40 @@
       </svg>
     </span>
   </button>
-  <div
-    class="form-message"
-    *ngIf="control.touched && control.dirty && control.invalid"
-  >
+  <div class="form-message" *ngIf="control.touched && control.dirty">
     <small *ngIf="control.hasError('required')"
-      ><i class="fa-solid fa-circle-exclamation"></i> This field is
-      required.</small
+      ><i class="fa-solid fa-circle-exclamation"></i> Trường này không thể bỏ
+      trống!</small
     >
     <small
       *ngIf="control.hasError('whitespace') && !control.hasError('required')"
-      ><i class="fa-solid fa-circle-exclamation"></i> This field is only
-      whitespace.</small
+      ><i class="fa-solid fa-circle-exclamation"></i>Trường này không thể điền
+      khoảng trắng!</small
     >
     <small *ngIf="control.hasError('minlength')"
-      ><i class="fa-solid fa-circle-exclamation"></i> Please enter at least
-      {{control.errors?.['minlength'].requiredLength}} characters.</small
+      ><i class="fa-solid fa-circle-exclamation"></i> Trường này nhập ít nhất
+      {{control.errors?.['minlength'].requiredLength}} ký tự.</small
     >
     <small *ngIf="control.hasError('maxlength')"
-      ><i class="fa-solid fa-circle-exclamation"></i> Please enter no more than
-      {{control.errors?.['maxlength'].requiredLength}} characters.</small
+      ><i class="fa-solid fa-circle-exclamation"></i> Trường này nhập nhiều nhất
+      {{control.errors?.['maxlength'].requiredLength}} ký tự.</small
     >
     <small
       *ngIf="control.hasError('pattern') && !control.hasError('minlength')"
     >
-      <i class="fa-solid fa-circle-exclamation"></i> Please match the requested
-      format.</small
+      <i class="fa-solid fa-circle-exclamation"></i> Trường này không đúng định
+      dạng!</small
     >
     <small *ngIf="control.hasError('email')">
-      <i class="fa-solid fa-circle-exclamation"></i> Please enter a valid email
-      address.</small
+      <i class="fa-solid fa-circle-exclamation"></i>Email không đúng định
+      dạng!</small
     >
+    <small *ngIf="isPasswordMatch() && name === 'xacThucMatKhau'">
+      <i class="fa-solid fa-circle-exclamation"></i> Xác thực mật khẩu không
+      khớp!
+    </small>
+    <small *ngIf="control.hasError('passwordMismatch') && name === 'matKhauCu'">
+      <i class="fa-solid fa-circle-exclamation"></i> Mật khẩu không đúng!
+    </small>
   </div>
 </div>

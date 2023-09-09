@@ -6,6 +6,8 @@
   padding: 15px;
   border-radius: 15px;
   background: $liteBG;
+  animation: animateScale 0.5s ease-in-out;
+
   .kind.success {
     text-align: center;
     font-size: 6rem;
@@ -49,5 +51,19 @@
       @extend .confirm;
       background: $errorColor;
     }
+  }
+}
+@keyframes animateScale {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+@include minWidth(992px) {
+  .modal-confirm {
+    @include size(fit-content, auto);
   }
 }

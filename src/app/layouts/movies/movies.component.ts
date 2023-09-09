@@ -1,11 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/store/app.state';
-import { getMovies } from '../../core/store/movie/movie.action';
+import { getMoviesPagination } from '../../core/store/movie/movie.action';
 import { MoviesModel } from '../../core/store/movie/movie.model';
-import { moviesSelector } from '../../core/store/movie/movie.selector';
-import { Observable, map } from 'rxjs';
+import { moviesPaginationSelector } from '../../core/store/movie/movie.selector';
+import {
+  Observable,
+  debounceTime,
+  map,
+  of,
+  startWith,
+  switchAll,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { FormControl } from '@angular/forms';
+import { DestroyService } from '../../core/services/destroy.service';
 
 @Component({
   selector: 'movies',
@@ -18,6 +30,8 @@ export class MoviesComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 12;
   totalPages!: number;
+  searchControl: FormControl = new FormControl('');
+
   ngOnInit(): void {
     let inderWidth = window.innerWidth;
     if (inderWidth >= 1400) {
@@ -29,8 +43,8 @@ export class MoviesComponent implements OnInit {
     } else {
       this.itemsPerPage = 4;
     }
-    this.store.dispatch(getMovies());
-    this.moviesAll$ = this.store.select(moviesSelector);
+    this.onSearchInputChange();
+    this.moviesAll$ = this.store.select(moviesPaginationSelector);
   }
   get itemsOnCurrentPage(): Observable<MoviesModel[]> {
     return this.moviesAll$.pipe(
@@ -64,12 +78,9 @@ export class MoviesComponent implements OnInit {
   }
 
   nextPage() {
-    this.moviesAll$.subscribe((items) => {
-      const maxPage = Math.ceil(items.length / this.itemsPerPage);
-      if (this.currentPage < maxPage) {
-        this.currentPage++;
-      }
-    });
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
   }
   getPageArray(totalPages: number): number[] {
     return Array.from({ length: totalPages }, (_, index) => index + 1);
@@ -79,6 +90,23 @@ export class MoviesComponent implements OnInit {
       this.currentPage = pageNumber;
     }
   }
+
+  onSearchInputChange() {
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        takeUntil(this.destroy$),
+        startWith(''),
+        switchMap((keywords) => of(keywords))
+      )
+      .subscribe((keywords) => {
+        this.store.dispatch(getMoviesPagination({ keywords }));
+      });
+  }
+  onClickedOutsideSearch() {
+    this.searchControl.reset();
+  }
+
   owlMovies: OwlOptions = {
     nav: true,
     autoplay: true,
@@ -116,5 +144,13 @@ export class MoviesComponent implements OnInit {
       },
     },
   };
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private destroy$: DestroyService
+  ) {}
+}
+function satrtWith(
+  arg0: string
+): import('rxjs').OperatorFunction<any, import('rxjs').ObservableInput<any>> {
+  throw new Error('Function not implemented.');
 }

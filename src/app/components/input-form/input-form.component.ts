@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { MatchedControls } from '../../shared/validators/matched.validator';
 
 @Component({
   selector: 'input-form',
@@ -23,5 +24,11 @@ export class InputFormComponent implements OnInit {
     this.isShowEye = !this.isShowEye;
     this.isShowEye ? (this.type = 'text') : (this.type = 'password');
     this.control.setErrors;
+  }
+  isPasswordMatch(): boolean {
+    if (this.control.parent instanceof FormGroup) {
+      return this.control.parent.hasError('valueNoMatch');
+    }
+    return false;
   }
 }

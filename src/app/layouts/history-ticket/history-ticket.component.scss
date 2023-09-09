@@ -1,0 +1,39 @@
+@import "../../../assets/scss/helpers/variables";
+@import "../../../assets/scss/helpers/mixins";
+.history-ticket {
+  table {
+    margin-inline: auto;
+    border-collapse: collapse;
+    border: 2px solid $borderColor;
+    color: $text4;
+    background: $darkBG;
+
+    th,
+    td {
+      padding: 10px;
+      text-align: center;
+      border: 2px solid $borderColor;
+    }
+    .name {
+      font-weight: 400;
+    }
+    .price {
+      color: $secondaryColor20;
+    }
+    .date {
+      color: $errorColor;
+    }
+    .seat-list {
+      @include flexBox($wrap: wrap);
+      max-width: 400px;
+      border: 0.5px solid $borderColor;
+    }
+    .seat:not(:last-child) {
+      border-right: 1px dashed $borderColor;
+    }
+    .seat {
+      color: #7bae00;
+      padding-inline: 10px;
+    }
+  }
+}

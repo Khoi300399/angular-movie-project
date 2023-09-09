@@ -1,0 +1,42 @@
+<ng-container *ngIf="thongTinTaiKhoan$ | async as thongTinTaiKhoan">
+  <div class="update-account">
+    <form [formGroup]="updateForm" (submit)="onSubmit(updateForm)">
+      <div class="row">
+        <input-form
+          [name]="taiKhoan"
+          placeholder="Nhập tài khoản..."
+          label="Tài khoản"
+          [control]="$any(updateForm.get(taiKhoan))"
+          [required]="true"
+        ></input-form>
+        <input-form
+          [name]="email"
+          placeholder="Enter your email..."
+          label="Email"
+          [control]="$any(updateForm.get(email))"
+          [required]="true"
+        ></input-form>
+        <input-form
+          [name]="hoTen"
+          placeholder="Nhập họ và tên..."
+          label="Họ và tên"
+          [control]="$any(updateForm.get(hoTen))"
+          [required]="true"
+        ></input-form>
+        <input-form
+          [name]="soDt"
+          placeholder="Nhập số diện thoại..."
+          label="Số điện thoại"
+          [control]="$any(updateForm.get(soDt))"
+          [required]="true"
+        ></input-form>
+      </div>
+      <div class="wrapper-btn">
+        <button type="submit" class="submit">
+          <div class="loading" *ngIf="loading"></div>
+          <span *ngIf="!loading">Cập nhật</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-container>
