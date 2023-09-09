@@ -87,16 +87,6 @@
       }
     }
   }
-  &-left {
-    height: 100%;
-    @include flexBox(flex-end, center);
-
-    .wrapper-btn {
-      height: 50%;
-      @include flexBox(center, center);
-      gap: 10px;
-    }
-  }
 }
 
 @include minWidth(767.98px) {
