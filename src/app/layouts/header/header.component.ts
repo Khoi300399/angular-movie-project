@@ -1,34 +1,15 @@
 import { Dialog } from '@angular/cdk/dialog';
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ModalLoginComponent } from '../../components/modal-login/modal-login.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/store/app.state';
-import {
-  Observable,
-  debounceTime,
-  distinctUntilChanged,
-  of,
-  switchMap,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 import { Auth } from '../../core/store/auth/auth.model';
 import { authSeclector } from '../../core/store/auth/auth.selector';
-import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { ACCESS_TOKEN, AUTH } from '../../core/utils/interceptor.util';
 import { logOut } from '../../core/store/auth/auth.actions';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalConfirmComponent } from '../../components/modal-confirm/modal-confirm.component';
-import { ScrollService } from '../../core/services/scroll.service';
-import { FormControl } from '@angular/forms';
-import { getMoviesPagination } from '../../core/store/movie/movie.action';
+
 import { DestroyService } from '../../core/services/destroy.service';
 
 @Component({
@@ -42,11 +23,7 @@ export class HeaderComponent implements OnInit {
   isActiveSetting: boolean = false;
   isMobile!: boolean;
   auth$!: Observable<Auth | null | undefined>;
-  @ViewChild('search') search!: ElementRef<HTMLElement>;
-  @ViewChild('searchIcon') searchIcon!: ElementRef<HTMLElement>;
-  @ViewChild('navbar') navbar!: ElementRef<HTMLElement>;
-  @ViewChild('navbarIcon') navbarIcon!: ElementRef<HTMLElement>;
-  @ViewChild('searchInput') searchInput!: ElementRef;
+  isNavbarIconClicked = false;
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -66,12 +43,19 @@ export class HeaderComponent implements OnInit {
   toggleActiveMenu() {
     this.isActiveMenu = !this.isActiveMenu;
   }
+  onClickedOutsideMenu() {
+    if (this.isActiveMenu && !this.isNavbarIconClicked) {
+      this.isActiveMenu = false;
+    }
+    this.isNavbarIconClicked = false;
+  }
   toggleActiveSetting() {
     this.isActiveSetting = !this.isActiveSetting;
   }
   onClickedOutsideSetting() {
     this.isActiveSetting = false;
   }
+
   openModalLogin(): void {
     this.dialog.open<string>(ModalLoginComponent);
   }

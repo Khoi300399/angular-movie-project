@@ -10,7 +10,7 @@
 }
 .tab-item {
   @include flexBox(center, center);
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 5px 5px 0 0;
   border-bottom: 5px solid $darkStroke;
   user-select: none;
@@ -52,6 +52,11 @@
 }
 .tab-pane.active {
   display: block;
+}
+@include minWidth(992px) {
+  .tab-item {
+    padding: 10px 20px;
+  }
 }
 @include minWidth(992px) {
   .tab-item {

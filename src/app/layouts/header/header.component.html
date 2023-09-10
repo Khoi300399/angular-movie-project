@@ -10,7 +10,7 @@
           #navbarIcon
           class="navbar-toggleer-icon"
           [class.active]="isActiveMenu"
-          (click)="toggleActiveMenu()"
+          (click)="toggleActiveMenu(); isNavbarIconClicked = true"
         >
           <span class="navbar-menu-icon navbar-menu-icon--top"></span
           ><span class="navbar-menu-icon navbar-menu-icon--mid"></span
@@ -108,7 +108,12 @@
           </div>
         </div>
       </div>
-      <nav class="navbar" [class.active]="isActiveMenu" #navbar>
+      <nav
+        class="navbar"
+        [class.active]="isActiveMenu"
+        #navbar
+        (appClickOutside)="onClickedOutsideMenu()"
+      >
         <ul class="navbar-menu">
           <li class="navbar-menu-item active">
             <a [routerLink]="['']" title="Trang Chủ">Trang Chủ</a>

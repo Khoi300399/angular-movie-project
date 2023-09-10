@@ -152,6 +152,8 @@
       z-index: 10;
       @include flexBox(center);
       overflow-x: auto;
+      overflow-y: hidden;
+
       &-item {
         @include size(90px);
       }
