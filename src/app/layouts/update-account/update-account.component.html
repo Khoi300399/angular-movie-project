@@ -1,6 +1,6 @@
-<ng-container *ngIf="thongTinTaiKhoan$ | async as thongTinTaiKhoan">
+<ng-container *ngIf="thongTinTaiKhoan">
   <div class="update-account">
-    <form [formGroup]="updateForm" (submit)="onSubmit(updateForm)">
+    <form [formGroup]="updateForm" (submit)="onSubmit($event, updateForm)">
       <div class="row">
         <input-form
           [name]="taiKhoan"
@@ -32,7 +32,7 @@
         ></input-form>
       </div>
       <div class="wrapper-btn">
-        <button type="submit" class="submit">
+        <button type="submit" class="submit" [disabled]="updateForm.invalid">
           <div class="loading" *ngIf="loading"></div>
           <span *ngIf="!loading">Cập nhật</span>
         </button>

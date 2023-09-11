@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core/store/app.state';
 import { layThongTinTaiKhoan } from '../../core/store/auth/auth.actions';
-import { Observable, map } from 'rxjs';
+import { Observable, map, takeUntil } from 'rxjs';
 import {
+  authSeclector,
   thongTinTaiKhoanSelector,
   thongTinTaiKhoanStatusSelector,
 } from '../../core/store/auth/auth.selector';
-import { ThongTinTaiKhoanModel } from '../../core/store/auth/auth.model';
+import { Auth, ThongTinTaiKhoanModel } from '../../core/store/auth/auth.model';
+import { DestroyService } from '../../core/services/destroy.service';
 
 @Component({
   selector: 'account',
@@ -20,16 +22,19 @@ export class AccountComponent implements OnInit {
     select(thongTinTaiKhoanStatusSelector),
     map((status) => status === 'loading')
   );
-  thongTinTaiKhoan$!: Observable<ThongTinTaiKhoanModel | null>;
+  auth$!: Observable<Auth | null | undefined>;
   ngOnInit(): void {
     this.scrollToTop();
 
     this.store.dispatch(layThongTinTaiKhoan());
 
-    this.thongTinTaiKhoan$ = this.store.select(thongTinTaiKhoanSelector);
+    this.auth$ = this.store.select(authSeclector);
   }
   scrollToTop(): void {
     window.scrollTo(0, 0);
   }
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private destroy$: DestroyService
+  ) {}
 }

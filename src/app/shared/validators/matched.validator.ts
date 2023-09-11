@@ -1,4 +1,11 @@
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+} from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
+import { Observable, map, switchMap, timeout, timer } from 'rxjs';
 
 export function MatchedControls(
   firstControlName: string,
@@ -22,3 +29,20 @@ export function MatchedControls(
         };
   };
 }
+export const CheckPasswordValidateDebounce = (authService: AuthService) => {
+  return function (
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    return timer(500).pipe(
+      switchMap(() =>
+        authService.layThongTinTaiKhoan().pipe(
+          map((response) => {
+            const matKhau = response.content.matKhau;
+            const isMatching = matKhau === control.value;
+            return isMatching ? null : { passwordMismatch: true };
+          })
+        )
+      )
+    );
+  };
+};

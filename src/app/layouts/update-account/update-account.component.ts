@@ -15,11 +15,12 @@ import { logOut } from '../../core/store/auth/auth.actions';
 import { ModalLoginComponent } from '../../components/modal-login/modal-login.component';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { ACCESS_TOKEN, AUTH } from '../../core/utils/interceptor.util';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, filter, map, takeUntil, tap } from 'rxjs';
 import {
   thongTinTaiKhoanSelector,
   thongTinTaiKhoanStatusSelector,
 } from '../../core/store/auth/auth.selector';
+import { DestroyService } from '../../core/services/destroy.service';
 
 @Component({
   selector: 'update-account',
@@ -32,21 +33,19 @@ export class UpdateAccountComponent implements OnInit {
   readonly email = 'email';
   readonly soDt = 'soDT';
   readonly hoTen = 'hoTen';
-  thongTinTaiKhoan$!: Observable<ThongTinTaiKhoanModel | null>;
+  thongTinTaiKhoan!: ThongTinTaiKhoanModel;
   loading$!: Observable<boolean>;
   loading: boolean = false;
 
   ngOnInit(): void {
-    this.thongTinTaiKhoan$ = this.store.pipe(
-      select(thongTinTaiKhoanSelector),
-      tap((thongTinTaiKhoan) => {
-        this.ngZone.runOutsideAngular(() => {
-          if (thongTinTaiKhoan !== null) {
-            this.updateForm.patchValue(thongTinTaiKhoan);
-          }
-        });
-      })
-    );
+    this.store
+      .pipe(select(thongTinTaiKhoanSelector), takeUntil(this.destroy$))
+      .subscribe((thongTinTaiKhoan) => {
+        if (thongTinTaiKhoan) {
+          this.thongTinTaiKhoan = thongTinTaiKhoan;
+          this.updateForm.patchValue(thongTinTaiKhoan);
+        }
+      });
     this.loading$ = this.store.pipe(
       select(thongTinTaiKhoanStatusSelector),
       map((status) => status === 'loading')
@@ -83,69 +82,67 @@ export class UpdateAccountComponent implements OnInit {
     ],
   });
 
-  onUpdateInfo(thongTinTaiKhoan: ThongTinTaiKhoanModel) {
-    if (thongTinTaiKhoan) {
-      const dialogRef = this.dialog.open<string>(ModalConfirmComponent, {
-        data: {
-          kind: 'info',
-          title: 'Xác nhận cập nhật!',
-          message: 'Bạn có chắc muốn cập nhật thông tin không?',
-          titleConfirm: 'Xác nhận',
-          titleCancel: 'không',
-        },
-        disableClose: true,
-      });
-      dialogRef.closed.subscribe((result) => {
-        if (result) {
-          this.authService.capNhatThongTinTaiKhoan(thongTinTaiKhoan).subscribe(
-            (response) => {
-              const dialogRef = this.dialog.open<string>(
-                ModalConfirmComponent,
-                {
-                  data: {
-                    kind: 'success',
-                    title: 'Cập nhật thành công!',
-                    message: 'Vui lòng đăng nhập lại',
-                    titleConfirm: 'Đăng nhập lại',
-                  },
-                  disableClose: true,
-                }
-              );
-              dialogRef.closed.subscribe((result) => {
-                if (result) {
-                  this.store.dispatch(logOut());
-                  this.storageService.remove(ACCESS_TOKEN);
-                  this.storageService.remove(AUTH);
-                  this.dialog.open<string>(ModalLoginComponent);
-                }
-              });
-            },
-            (error) => {
-              // Xử lý lỗi khi cập nhật thông tin không thành công
-              console.error('Lỗi khi cập nhật thông tin', error);
-            },
-            () => {
-              this.loading = false;
-            }
-          );
-        }
-      });
-    }
-  }
-
-  onSubmit(form: FormGroup) {
-    this.loading = true;
-    this.thongTinTaiKhoan$.subscribe((thongTinTaiKhoan) => {
-      let valueSubmit = { ...thongTinTaiKhoan, ...form.value };
-      this.onUpdateInfo(valueSubmit);
+  onUpdateInfo(form: FormGroup) {
+    const dialogRef = this.dialog.open<string>(ModalConfirmComponent, {
+      data: {
+        kind: 'info',
+        title: 'Xác nhận cập nhật!',
+        message: 'Bạn có chắc muốn cập nhật thông tin không?',
+        titleConfirm: 'Xác nhận',
+        titleCancel: 'không',
+      },
+      disableClose: true,
+    });
+    dialogRef.closed.subscribe((result) => {
+      if (result) {
+        let valueSubmit = { ...this.thongTinTaiKhoan, ...form.value };
+        console.log('form.value', form.value);
+        this.authService.capNhatThongTinTaiKhoan(valueSubmit).subscribe(
+          (response) => {
+            const dialogRef = this.dialog.open<string>(ModalConfirmComponent, {
+              data: {
+                kind: 'success',
+                title: 'Cập nhật thành công!',
+                message: 'Vui lòng đăng nhập lại',
+                titleConfirm: 'Đồng ý',
+              },
+              disableClose: true,
+            });
+            dialogRef.closed.subscribe((result) => {
+              if (result) {
+                this.store.dispatch(logOut());
+                this.storageService.remove(ACCESS_TOKEN);
+                this.storageService.remove(AUTH);
+                this.dialog.open<string>(ModalLoginComponent);
+              }
+            });
+          },
+          (error) => {
+            // Xử lý lỗi khi cập nhật thông tin không thành công
+            console.error('Lỗi khi cập nhật thông tin', error);
+          },
+          () => {
+            this.loading = false;
+          }
+        );
+      } else {
+        this.loading = false;
+      }
     });
   }
+
+  onSubmit(event: Event, form: FormGroup) {
+    event.preventDefault();
+    this.loading = true;
+    this.onUpdateInfo(form);
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private store: Store<AppState>,
     private dialog: Dialog,
     private storageService: LocalStorageService,
-    private ngZone: NgZone
+    private destroy$: DestroyService
   ) {}
 }
