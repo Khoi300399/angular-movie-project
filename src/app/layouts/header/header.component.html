@@ -17,7 +17,7 @@
           ><span class="navbar-menu-icon navbar-menu-icon--bot"></span>
         </div>
         <div *ngIf="isMobile" class="logo logo--mobile">
-          <a class="logo-icon" href="#!">
+          <a class="logo-icon" [routerLink]="['/']">
             <img src="../../../assets/images/logo.png" alt="logo"
           /></a>
           <h1 class="logo-brand">
@@ -133,7 +133,7 @@
         </ul>
       </nav>
       <div *ngIf="!isMobile" class="logo logo--destop">
-        <a class="logo-icon" href="#!">
+        <a class="logo-icon" [routerLink]="['/']">
           <img src="../../../assets/images/logo.png" alt="logo"
         /></a>
         <h1 class="logo-brand">
