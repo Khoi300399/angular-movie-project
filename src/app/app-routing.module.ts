@@ -1,23 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { HomeTemplateComponent } from './templates/home-template/home-template.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   {
-    path: 'dat-ve',
+    path: '',
     loadChildren: () =>
-      import('./pages/reserve/reserve.module').then((m) => m.ReserveModule),
-  },
-  {
-    path: 'chi-tiet-phim',
-    loadChildren: () =>
-      import('./pages/detail/detail.module').then((m) => m.DetailModule),
-  },
-  {
-    path: 'tai-khoan',
-    loadChildren: () =>
-      import('./pages/account/account.module').then((m) => m.AccountModule),
+      import('../app/templates/home-template/home-template.module').then(
+        (m) => m.HomeTemplateModule
+      ),
   },
 ];
 

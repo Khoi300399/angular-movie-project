@@ -1,53 +1,51 @@
-<home-template>
-  <section class="account">
-    <div class="px-lg-5">
-      <div class="row">
-        <div class="col-12 col-xl-2">
-          <div class="avatar">
-            <img
-              [src]="
+<main class="account">
+  <div class="px-lg-5">
+    <div class="row">
+      <div class="col-12 col-xl-2">
+        <div class="avatar">
+          <img
+            [src]="
                 'https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=150&name=' +
                 (auth$ |async)?.['hoTen']
               "
-              alt="avatar"
-            />
-          </div>
-          <div class="email">
-            <p>{{ (auth$ |async)?.['email'] }}</p>
-          </div>
+            alt="avatar"
+          />
         </div>
-        <div class="col-12 col-xl-10">
-          <tab-group [(activeIndex)]="currentIndex">
-            <tab-panel
-              title="Thông tin tài khoản"
-              iconClass="fa-solid fa-address-card"
-            >
-              <div class="form">
-                <ng-container *ngIf="!(loading$ | async); else loading"
-                  ><update-account></update-account
-                ></ng-container>
-              </div>
-            </tab-panel>
-            <tab-panel title="Lịch sử đặt vé" iconClass="fa-solid fa-ticket">
-              <div class="table">
-                <ng-container *ngIf="!(loading$ | async); else loading"
-                  ><history-ticket></history-ticket
-                ></ng-container>
-              </div>
-            </tab-panel>
-            <tab-panel title="Đổi mật khẩu" iconClass="fa-solid fa-lock">
-              <div class="form">
-                <ng-container *ngIf="!(loading$ | async); else loading"
-                  ><change-password></change-password
-                ></ng-container>
-              </div>
-            </tab-panel>
-          </tab-group>
+        <div class="email">
+          <p>{{ (auth$ |async)?.['email'] }}</p>
         </div>
       </div>
+      <div class="col-12 col-xl-10">
+        <tab-group [(activeIndex)]="currentIndex">
+          <tab-panel
+            title="Thông tin tài khoản"
+            iconClass="fa-solid fa-address-card"
+          >
+            <div class="form">
+              <ng-container *ngIf="!(loading$ | async); else loading"
+                ><update-account></update-account
+              ></ng-container>
+            </div>
+          </tab-panel>
+          <tab-panel title="Lịch sử đặt vé" iconClass="fa-solid fa-ticket">
+            <div class="table">
+              <ng-container *ngIf="!(loading$ | async); else loading"
+                ><history-ticket></history-ticket
+              ></ng-container>
+            </div>
+          </tab-panel>
+          <tab-panel title="Đổi mật khẩu" iconClass="fa-solid fa-lock">
+            <div class="form">
+              <ng-container *ngIf="!(loading$ | async); else loading"
+                ><change-password></change-password
+              ></ng-container>
+            </div>
+          </tab-panel>
+        </tab-group>
+      </div>
     </div>
-  </section>
-</home-template>
+  </div>
+</main>
 <ng-template #loading>
   <loading></loading>
 </ng-template>

@@ -2,6 +2,7 @@
 @import "../../../assets/scss/helpers/mixins";
 .reserve {
   padding-block: 100px 50px;
+  overflow: hidden;
   &-countdown {
     @include flexBox(center, center);
     padding: 10px;

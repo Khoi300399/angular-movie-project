@@ -1,40 +1,38 @@
-<home-template>
-  <section class="reserve">
-    <cart-combo></cart-combo>
-    <div class="container">
-      <div class="row">
-        <div class="mb-5 col-12 col-lg-8 col-xxl-7">
-          <div class="reserve-top">
-            <div class="reserve-countdown">
-              <p class="title">
-                Thời gian giữ ghế
-                <ng-container *ngIf="!(isLoading$ | async)">
-                  <span class="countdown" (countdown)="onCountdownFinished()"
-                    >5:00</span
-                  >
-                </ng-container>
-              </p>
-            </div>
-            <div class="reserve-screen">
-              <img src="../../../assets/images/screen.png" alt="screen" />
-              <p class="title">Màn hình</p>
-            </div>
-            <ng-container *ngIf="!(isLoading$ | async); else loading">
-              <seats></seats
-            ></ng-container>
+<main class="reserve">
+  <cart-combo></cart-combo>
+  <div class="container">
+    <div class="row">
+      <div class="mb-5 col-12 col-lg-8 col-xxl-7">
+        <div class="reserve-top">
+          <div class="reserve-countdown">
+            <p class="title">
+              Thời gian giữ ghế
+              <ng-container *ngIf="!(isLoading$ | async)">
+                <span class="countdown" (countdown)="onCountdownFinished()"
+                  >5:00</span
+                >
+              </ng-container>
+            </p>
           </div>
+          <div class="reserve-screen">
+            <img src="../../../assets/images/screen.png" alt="screen" />
+            <p class="title">Màn hình</p>
+          </div>
+          <ng-container *ngIf="!(isLoading$ | async); else loading">
+            <seats></seats
+          ></ng-container>
         </div>
-        <div class="col-12 col-lg-4 col-xxl-5">
-          <div class="reserve-bottom">
-            <ng-container *ngIf="!(isLoading$ | async)">
-              <purchase></purchase>
-            </ng-container>
-          </div>
+      </div>
+      <div class="col-12 col-lg-4 col-xxl-5">
+        <div class="reserve-bottom">
+          <ng-container *ngIf="!(isLoading$ | async)">
+            <purchase></purchase>
+          </ng-container>
         </div>
       </div>
     </div>
-  </section>
-</home-template>
+  </div>
+</main>
 <ng-template #loading>
   <loading></loading>
 </ng-template>

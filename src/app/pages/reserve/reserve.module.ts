@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReserveComponent } from './reserve.component';
-import { HomeTemplateModule } from '../../shared/modules/home-template.module';
 import { ReserveRoutingModule } from './reserve-routing.module';
 import { SeatsComponent } from '../../components/seats/seats.component';
 import { PurchaseComponent } from '../../components/purchase/purchase.component';
@@ -10,6 +9,7 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { CartComboComponent } from '../../components/cart-combo/cart-combo.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
+import { HomeTemplateModule } from '../../templates/home-template/home-template.module';
 
 @NgModule({
   declarations: [

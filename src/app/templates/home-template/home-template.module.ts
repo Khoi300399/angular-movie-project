@@ -6,6 +6,7 @@ import { FooterComponent } from '../../layouts/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { ClickOutsideDirective } from '../../core/directives/click-outside.directive';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeTemplateRoutingModule } from './home-template-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     ClickOutsideDirective,
+    HomeTemplateRoutingModule,
   ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
 })
